@@ -139,6 +139,7 @@ div.twimonial:first-child {
 div.twimonial div.leftbar {
   float: left;
   text-align: center;
+  height: 80px;
   }
 
 div.twimonial div.leftbar a.agree-button {

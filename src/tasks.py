@@ -33,9 +33,9 @@ def get_twimonials():
     p_json = json.loads(f.content)
     results = p_json['results']
     if not results:
-      if p_json['max_id'] > 0 and since_id != p_json['max_id']:
-        logging.debug('Updated since_id to %d' % p_json['max_id'])
-        Data.write('since_id', p_json['max_id'])
+#      if p_json['max_id'] > 0 and since_id != p_json['max_id']:
+#        logging.debug('Updated since_id to %d' % p_json['max_id'])
+#        Data.write('since_id', p_json['max_id'])
       # Re-schedule
 #      deferred.defer(get_twimonials,
 #          _countdown=config.TASK_GET_TWIMONIAL_INTERVAL)
@@ -75,6 +75,8 @@ def get_twimonials():
     Data.write('since_id', p_json['max_id'])
     deferred.defer(get_twimonials)
     logging.debug('%d twimonials stored, rescheduled' % len(tqis))
+#  elif f.status_code == 404:
+#    # since_id is too old
   else:
     logging.error('Unable to search, status_code: %d'\
         % f.status_code)
