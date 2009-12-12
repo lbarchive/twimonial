@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <title>Twimonial » {{ user.screen_name }}</title>
+  <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+  <script src="/js/main.js" type="text/javascript"></script>
+{{ HEAD }}
+{{ config.BEFORE_HEAD_END }}
+</head>
+<body class="user">
+{% include "topbar.html" %}
+<div id="wrap">
+{% include "header.html" %}
+<div id="content">
+<div class="user-header">
+<a class="profile-image" href="http://twitter.com/{{ user.screen_name }}"><img src="{{ user.profile_image_url }}" title="{{ twimonial.from_user.screen_name }}"/></a>
+<h2>{{ user.screen_name }}</h2>
+</div>
+
+<div id="twimonials-tabs">
+<ul>
+  <li><a href="#top-twimonials">Most Agreed Over Time</a></li>
+  <li><a href="#latest-twimonials">Latest</a></li>
+  <li><a href="#written-twimonials">Has Written</a></li>
+</ul>
+
+<div id="top-twimonials" class="twimonials">
+{% if user.top_twimonials %}
+{% for twimonial in user.top_twimonials %}
+{% include "twimonial.html" %}
+{% endfor %}
+{% else %}
+<div class="notice">No one writes {{ user.screen_name }} a Twimonial yet</div>
+{% endif %}
+</div>
+
+<div id="latest-twimonials" class="twimonials">
+{% if user.latest_twimonials %}
+{% for twimonial in user.latest_twimonials %}
+{% include "twimonial.html" %}
+{% endfor %}
+{% else %}
+<div class="notice">No one writes {{ user.screen_name }} a Twimonial yet</div>
+{% endif %}
+</div>
+
+<div id="written-twimonials" class="twimonials">
+{% if user.written_twimonials %}
+{% for twimonial in user.written_twimonials %}
+{% include "written_twimonial.html" %}
+{% endfor %}
+{% else %}
+<div class="notice">{{ user.screen_name }} has not written any Twimonial yet</div>
+{% endif %}
+</div>
+</div><!-- twimonials-tabs -->
+
+</div>
+{% include "footer.html" %}
+</div>
+{{ config.BEFORE_BODY_END }}
+</body>
+</html>

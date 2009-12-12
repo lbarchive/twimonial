@@ -1,0 +1,45 @@
+application: twimonial
+version: 1
+runtime: python
+api_version: 1
+
+default_expiration: "1d"
+
+handlers:
+- url: /css
+  static_dir: css
+
+- url: /img
+  static_dir: img
+ 
+- url: /js
+  static_dir: js
+ 
+- url: /robots.txt
+  static_files: robots.txt
+  upload: robots.txt
+
+- url: /favicon.ico
+  static_files: favicon.ico
+  upload: favicon.ico
+  mime_type: image/vnd.microsoft.icon
+
+- url: /user/[_a-zA-Z0-9]+
+  script: user.py
+
+- url: /userlist/[_a-zA-Z0-9]+/[-_a-zA-Z0-9]+
+  script: user.py
+
+- url: /cron/.*
+  script: cron.py
+  login: admin
+
+- url: /agree.json
+  script: ajax.py
+
+- url: /_ah/queue/deferred
+  script: $PYTHON_LIB/google/appengine/ext/deferred/handler.py
+  login: admin
+
+- url: /.*
+  script: index.py

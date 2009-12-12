@@ -1,0 +1,4 @@
+cron:
+- description: Make sure tasks will always be there
+  url: /cron/reschedule_tasks
+  schedule: every 5 minutes

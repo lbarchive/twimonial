@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <title>Twimonial - Testimonials about Twitters</title>
+  <meta name="description" content="Read or write testimonials about Twitter users"/>
+  <meta name="keywords" content="testimonial, testimony, twimonial, Twitter, Follow Friday"/>
+  <link href="/css/main.css" type="text/css" rel="stylesheet"/>
+  <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+  <script src="/js/main.js" type="text/javascript"></script>
+{{ HEAD }}
+{{ config.BEFORE_HEAD_END }}
+</head>
+<body>
+{% include "topbar.html" %}
+<div id="wrap">
+{% include "header.html" %}
+<div id="content">
+<h2>Search</h2>
+<div class="menu">
+Read Twimonials about <input id="f1_screen_name" type="text" value="livibetter"/> <input type="button" onclick="f1()" value="»"/>
+</div>
+
+<h2>Make Lists for Follow Friday #FF</h2>
+<div class="menu">
+List Most Agreed Over Time Twimonials about <input id="f2_screen_names" type="text" value="livibetter" title="Ten screen names at most"/> <input type="button" onclick="f2()" value="»"/>
+</div>
+
+<div class="menu">
+List Twimonials about <input id="f3_screen_names" type="text" value="postsecret cookingupastory" title="Ten screen names at most"/> by <input id="f3_screen_name" type="text" value="livibetter"/> <input type="button" onclick="f3()" value="»"/>
+</div>
+
+<h2>How to Add a Twimonial?</h2>
+<p>
+It is very simple, you do not need to register here or authorize this website to access. You only need to tweet. There are four prerequisites to form a Twimonial:
+<ol>
+  <li>Your Twitter account and the Twitter account you are about to write a Twimonial for, both need to be <i>Public</i> accounts.</li>
+  <li>You must follow that Twitter account.</li>
+  <li>You must use @reply.</li>
+  <li>You must put the hashtag #twimonial at the end of the tweet.</li>
+</ol>
+If you are going to write a Twimonial about @screen_name, you will tweet:
+<pre style="-moz-border-radius: 5px; background-color: #48c; padding: 5px; white-space: normal;">
+<b>@screen-name</b> This guy is smart, intelligent, active and always replies. The tweets are mostly about geeky stuff, Linux, etc.<b>#twimonial</b>
+</pre>
+
+A few facts you might want to know:
+<ul>
+  <li>You can only write a Twimonial for a Twitter user, the content is limited to lesser than 140 characters.</li>
+  <li>You can update, you just tweet again with new Twimonial.</li>
+  <li>The pages usually have minutes long caching time. Please be patient.</li>
+</ul>
+</p>
+
+</div><!-- content -->
+{% include "footer.html" %}
+</div>
+{{ config.BEFORE_BODY_END }}
+</body>
+</html>
