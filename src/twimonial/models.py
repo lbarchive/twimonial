@@ -4,6 +4,7 @@ import simplejson as json
 
 from twimonial.util import fetch, td_seconds
 import config
+import tasks
 
 
 # user_id gets wrong account, WTF? 2009-12-12T08:53:57+0800
@@ -48,12 +49,20 @@ class User(db.Model):
     
     user = cls(key_name=str(id), screen_name=screen_name,
         normalized_screen_name=screen_name.lower())
-    if profile_image_url is None:
-      user.profile_image_url = User.get_profile_image_url(screen_name)
-    else:
+    if profile_image_url:
       user.profile_image_url = profile_image_url
     user.put()
+    if not profile_image_url:
+      # This is new user, queue profile image updating
+      user.check_profile_image()
     return user
+
+  def check_profile_image(self):
+    # Queue profile image updating if new or too old
+    if not self.profile_image_url or \
+        td_seconds(self.updated) >= config.CHECK_PROFILE_IMAGE_INTERVAL:
+      # Time to check if there is a new profile image
+      tasks.queue_check_profile_image(self.key().id())
 
   @staticmethod
   def get_profile_image_url(screen_name):
@@ -63,6 +72,13 @@ class User(db.Model):
       p_json = json.loads(f.content)
       return p_json['profile_image_url']
     return None
+
+  def update_profile_image_url(self):
+
+    profile_image_url = User.get_profile_image_url(self.screen_name)
+    if profile_image_url and profile_image_url != self.profile_image_url:
+      self.profile_image_url = profile_image_url
+      self.put()
 
   @classmethod
   def get_by_screen_name(cls, screen_name):

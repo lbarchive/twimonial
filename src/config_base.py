@@ -23,6 +23,9 @@ CACHE_TIME_USERPAGE = 300
 CACHE_TIME_USERLISTPAGE = 300
 CACHE_TIME_LISTPAGE = 300
 
+# Check Profile Image
+CHECK_PROFILE_IMAGE_INTERVAL = 86400 * 7
+
 # Under development server?
 DEV = os.environ['SERVER_SOFTWARE'].startswith('Development')
 

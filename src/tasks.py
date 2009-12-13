@@ -2,6 +2,7 @@ from datetime import datetime
 import logging
 
 from google.appengine.api import memcache
+from google.appengine.api.labs.taskqueue import TaskAlreadyExistsError
 from google.appengine.ext import db
 from google.appengine.ext import deferred
 
@@ -118,6 +119,7 @@ def process_TQI():
         from_user = User.add(tqi.from_user_id, tqi.from_user, tqi.profile_image_url)
 
       if to_user:
+        to_user.check_profile_image()
         if to_user.normalized_screen_name != tqi.to_user.lower():
           # screen_name changes
           to_user.screen_name = tqi.to_user
@@ -158,6 +160,19 @@ def process_TQI():
 #    deferred.defer(process_TQI, _countdown=config.TASK_PROCESS_TQI_INTERVAL)
 
 
-def update_profile_image_url():
-  #TODO
-  pass
+def queue_profile_image(user_id):
+
+  user = User.get_by_id(user_id)
+  if user is None:
+    return
+  try:
+    deferred.defer(update_profile_image_url, user_id, _name='update_profile_image_%d_%s' % (user_id, self.screen_name))
+  except TaskAlreadyExistsError:
+    pass
+
+
+def update_profile_image_url(user_id):
+  
+  user = User.get_by_id(user_id)
+  if user:
+    user.update_profile_image_url()
