@@ -63,9 +63,6 @@ class User(db.Model):
     if not self.profile_image_url or \
         td_seconds(self.updated) >= config.CHECK_PROFILE_IMAGE_INTERVAL:
       # Time to check if there is a new profile image
-      # Could not import on the top, that would cause tasks.py could not import
-      # anything from this module
-      import tasks
       tasks.queue_profile_image(self.key().name())
 
   @staticmethod
@@ -201,3 +198,9 @@ class TQI(db.Model):
   profile_image_url = db.StringProperty(required=True)
   created_at = db.DateTimeProperty(required=True)
   text = db.StringProperty(required=True)
+
+# Could not import on the top, that would cause tasks.py could not import
+# anything from this module. This is ugly. Models should never have such
+# functions to operate/rely on other. We can add a cron to monitor new Users
+# but it costs much more than this trick.
+import tasks
