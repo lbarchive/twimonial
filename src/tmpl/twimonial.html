@@ -1,10 +1,13 @@
 <div class="twimonial">
-<div class="leftbar">
-<a class="profile-image" href="http://twitter.com/{{ twimonial.from_user.screen_name }}"><img src="{{ twimonial.from_user.profile_image_url }}" title="{{ twimonial.from_user.screen_name }}"/></a>
-<a class="agree-button" href="javascript:agree({{ twimonial.id }})">Agree</a>
-</div>
-<div class="content">
-<div class="info"><span class="screen-name"><a href="/user/{{ twimonial.from_user.screen_name }}">{{ twimonial.from_user.screen_name }}</a></span> wrote:<span class="time" title="{{ twimonial.created_at|date:"r" }}">{{ twimonial.created_at|timesince }} ago</span></div>
-<div class="text">{{ twimonial.text }}</div>
-</div>
+ <div class="leftbar">
+  <a class="profile-image" href="/user/{{ twimonial.from_user.screen_name }}"><img src="{{ twimonial.from_user.profile_image_url }}" title="{{ twimonial.from_user.screen_name }}"/></a>
+  <a class="agree-button" href="javascript:agree({{ twimonial.id }})">Agree</a>
+ </div>
+
+ <div class="content">
+  <div class="info">
+   <span class="screen-name"><a href="/user/{{ twimonial.from_user.screen_name }}">{{ twimonial.from_user.screen_name }}</a></span> wrote:<span class="time" title="{{ twimonial.created_at|date:"r" }}">{{ twimonial.created_at|timesince }} ago</span>
+  </div>
+  <div class="text">{{ twimonial.text }}</div>
+ </div>
 </div>

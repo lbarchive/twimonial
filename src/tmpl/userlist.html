@@ -15,14 +15,14 @@
 {% include "header.html" %}
 <div id="content">
 <div class="user-header">
-{% if user.profile_image_url %}<a class="profile-image" href="http://twitter.com/{{ user.screen_name }}"><img src="{{ user.profile_image_url }}" title="{{ twimonial.from_user.screen_name }}"/></a>{% endif %}
-<h2><a href="/user/{{ user.screen_name }}">{{ user.screen_name }}</a></h2>
+{% if user.profile_image_url %}<a class="profile-image" href="http://user/{{ user.screen_name }}"><img src="{{ user.profile_image_url }}" title="{{ twimonial.from_user.screen_name }}"/></a>{% endif %}
+<h2><span class="screen-name"><a href="/user/{{ user.screen_name }}">{{ user.screen_name }}</a></span></h2>
 </div>
 
 <div id="twimonials-tabs">
 <div id="written-twimonials" class="twimonials">
 {% for twimonial in twimonials %}
-{% include "written_twimonial.html" %}
+{% include "twimonial_written.html" %}
 {% endfor %}
 </div>
 {% if missings %}<div class="notice">Can not find Twimonials about {{ missings }} by {{ user.screen_name }}</div>{% endif %}

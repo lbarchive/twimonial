@@ -59,13 +59,13 @@ a img {
   font-weight: bold;
   font-style: normal;
   text-decoration: none;
-  color: #393;
-  text-shadow: 1px 1px 0 #6c6;
+  color: #363;
+  text-shadow: 1px 1px 0 #66c;
   margin: 0 0.5em;
   }
 
 .nav a:hover {
-  text-shadow: #0f0 0px 0px 2px;
+  text-shadow: #89f 0px 0px 2px;
   }
 
 /* Home Page */
@@ -130,6 +130,7 @@ body.user div.user-header a.profile-image img {
 div.twimonial {
   clear: both;
   margin-top: 10px;
+  height: 80px;
   }
 
 div.twimonial:first-child {
@@ -139,7 +140,6 @@ div.twimonial:first-child {
 div.twimonial div.leftbar {
   float: left;
   text-align: center;
-  height: 80px;
   }
 
 div.twimonial div.leftbar a.agree-button {

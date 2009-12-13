@@ -1,0 +1,10 @@
+<div class="twimonial">
+ <div class="leftbar">
+  <a class="profile-image" href="/user/{{ twimonial.to_user.screen_name }}"><img src="{{ twimonial.to_user.profile_image_url }}" title="{{ twimonial.to_user.screen_name }}"/></a>
+  <a class="agree-button" href="javascript:agree({{ twimonial.id }})">Agree</a>
+ </div>
+ <div class="content">
+  <div class="info">About <span class="screen-name"><a href="/user/{{ twimonial.to_user.screen_name }}">{{ twimonial.to_user.screen_name }}</a></span>:<span class="time" title="{{ twimonial.created_at|date:"r" }}">{{ twimonial.created_at|timesince }} ago</span></div>
+  <div class="text">{{ twimonial.text }}</div>
+ </div>
+</div>
