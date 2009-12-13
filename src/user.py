@@ -27,7 +27,7 @@ class UserPage(webapp.RequestHandler):
       rendered_page = render_write({'screen_name': screen_name},
           'user_404.html', self.request, self.response)
       return
-    # TODO check updated, if it's been awhile, then grab profile_image_url
+    user.check_profile_image()
     tmpl_values = {
         'user': user.dictize(),
         }
