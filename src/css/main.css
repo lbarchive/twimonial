@@ -228,3 +228,12 @@ div.twimonial div.content div.text {
   top: 0;
   margin: 2px;
   }
+
+/* Misc */
+
+pre.tweet {
+  -moz-border-radius: 5px;
+  background-color: #48c;
+  padding: 5px;
+  white-space: normal;
+  }

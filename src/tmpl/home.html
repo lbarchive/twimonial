@@ -6,9 +6,6 @@
   <title>Twimonial - Testimonials about Twitters</title>
   <meta name="description" content="Read or write testimonials about Twitter users"/>
   <meta name="keywords" content="testimonial, testimony, twimonial, Twitter, Follow Friday"/>
-  <link href="/css/main.css" type="text/css" rel="stylesheet"/>
-  <script src="http://www.google.com/jsapi" type="text/javascript"></script>
-  <script src="/js/main.js" type="text/javascript"></script>
 {{ HEAD }}
 {{ config.BEFORE_HEAD_END }}
 </head>
@@ -16,6 +13,11 @@
 <div id="wrap">
 {% include "header.html" %}
 <div id="content">
+<h2>What is Twimonial</h2>
+<div>Twimonial is a webapp to read testimonials about Twitter users. You can also make list for you Follow Friday to recommend your followers for some good Twitters, for example:
+<pre class="tweet">#FF @postsecret @cookingupastory @claraskitchen @ImprovEvery Read my #twimonial at <a href="http://j.mp/5Ikq95">http://j.mp/5Ikq95</a></pre>
+</div>
+
 <h2>Search</h2>
 <div class="menu">
 Read Twimonials about <input id="f1_screen_name" type="text" value="livibetter"/> <input type="button" onclick="f1()" value="»"/>
@@ -40,7 +42,7 @@ It is very simple, you do not need to register here or authorize this website to
   <li>You must put the hashtag #twimonial at the end of the tweet.</li>
 </ol>
 If you are going to write a Twimonial about @screen_name, you will tweet:
-<pre style="-moz-border-radius: 5px; background-color: #48c; padding: 5px; white-space: normal;">
+<pre class="tweet">
 <b>@screen-name</b> This guy is smart, intelligent, active and always replies. The tweets are mostly about geeky stuff, Linux, etc.<b>#twimonial</b>
 </pre>
 
