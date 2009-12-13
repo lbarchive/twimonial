@@ -1,10 +1,11 @@
+import logging
+
 from google.appengine.ext import db
 
 import simplejson as json
 
 from twimonial.util import fetch, td_seconds
 import config
-import tasks
 
 
 # user_id gets wrong account, WTF? 2009-12-12T08:53:57+0800
@@ -62,7 +63,10 @@ class User(db.Model):
     if not self.profile_image_url or \
         td_seconds(self.updated) >= config.CHECK_PROFILE_IMAGE_INTERVAL:
       # Time to check if there is a new profile image
-      tasks.queue_check_profile_image(self.key().id())
+      # Could not import on the top, that would cause tasks.py could not import
+      # anything from this module
+      import tasks
+      tasks.queue_profile_image(self.key().name())
 
   @staticmethod
   def get_profile_image_url(screen_name):
@@ -75,6 +79,7 @@ class User(db.Model):
 
   def update_profile_image_url(self):
 
+    logging.debug('Updating profile image of %s' % self.screen_name)
     profile_image_url = User.get_profile_image_url(self.screen_name)
     if profile_image_url and profile_image_url != self.profile_image_url:
       self.profile_image_url = profile_image_url

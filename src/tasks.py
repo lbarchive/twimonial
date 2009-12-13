@@ -160,19 +160,17 @@ def process_TQI():
 #    deferred.defer(process_TQI, _countdown=config.TASK_PROCESS_TQI_INTERVAL)
 
 
-def queue_profile_image(user_id):
+def queue_profile_image(key_name):
 
-  user = User.get_by_id(user_id)
-  if user is None:
-    return
   try:
-    deferred.defer(update_profile_image_url, user_id, _name='update_profile_image_%d_%s' % (user_id, self.screen_name))
+    deferred.defer(update_profile_image_url, key_name, _name='update-profile-image-%s' % key_name)
   except TaskAlreadyExistsError:
     pass
 
 
-def update_profile_image_url(user_id):
-  
-  user = User.get_by_id(user_id)
+def update_profile_image_url(key_name):
+ 
+  logging.debug('Task update_profile_image_url')
+  user = User.get_by_key_name(key_name)
   if user:
     user.update_profile_image_url()
