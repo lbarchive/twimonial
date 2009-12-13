@@ -7,7 +7,7 @@ import config
 
 def render_write(tmpl_values, tmpl_name, request=None, response=None):
   # A helper function to set up some common stuff, render, then write to client
-  main_css_rev = '2009-12-13T20:42:03+0800'
+  main_css_rev = '2009-12-14T03:50:41+0800'
   main_js_rev = '2009-12-13T20:25:10+0800'
   if 'HEAD' not in tmpl_values:
     tmpl_values['HEAD'] = ''

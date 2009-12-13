@@ -38,11 +38,14 @@ a img {
   }
 
 #header>.title a {
+  color: #fff;
   font-family: Times;
-  color: #b22;
+  text-shadow: 1px 1px 1px #000;
+  font-size: 56px;
   }
 
 #header>.title a:hover {
+  color: #48c;
   text-decoration: none;
   }
 
@@ -65,7 +68,8 @@ a img {
   }
 
 .nav a:hover {
-  text-shadow: #89f 0px 0px 2px;
+  color: #fff;
+/*  text-shadow: #89f 0px 0px 2px;*/
   }
 
 /* Home Page */
