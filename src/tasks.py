@@ -1,5 +1,6 @@
 from datetime import datetime
 import logging
+import re
 
 from google.appengine.api import memcache
 from google.appengine.api.labs.taskqueue import TaskAlreadyExistsError
@@ -16,7 +17,9 @@ import config
 TWITTER_SEARCH_BASE_URI = 'https://search.twitter.com/search.json'
 SEARCH_TWIMONIAL_URI = TWITTER_SEARCH_BASE_URI + '?q=%23twimonial'
 
-TWITTER_EXISTS_URI = 'https://twitter.com/friendships/exists.json?user_a=%s&user_b=%s'
+TWITTER_SHOW_URI = 'https://twitter.com/friendships/show.json?source_screen_name=%s&target_screen_name=%s'
+
+RE_TWIMONIAL = re.compile('(.*)#twimonial ?@([_a-zA-Z0-9]+)$')
 
 
 def get_twimonials():
@@ -46,23 +49,30 @@ def get_twimonials():
     # Starting processing
     tqis = []
     for t in results:
-      # A twimonial? Must have to_user and #twimonial must at the end
-      if 'to_user' not in t:
-        # Doesn't have to_user, skip
-        continue
-      if t['to_user_id'] == t['from_user_id']:
-        # Should not wrote a twimonial about self
-        continue
-      if not t['text'].lower().strip().endswith('#twimonial'):
-        # No #twimonial at the end of tweet
-        continue
-      # Remove @to_user and #twimonial
-      # 1+len(t['to_user'] => @to_user
-      # -10 => -len('#twimonial')
-      text = t['text'].strip()[1+len(t['to_user']):-10].strip()
-      if text.find('http') > -1:
+      if t['text'].find('http') > -1:
         # Possibly a link, skip
         continue
+      # A twimonial? Must have to_user and #twimonial must at the end, or in
+      # this form 'blah blah #twimonial @user'
+      if 'to_user' not in t:
+        # Doesn't have to_user, not using @replay
+        m = RE_TWIMONIAL.match(t['text'])
+        if not m:
+          continue
+        t['to_user'] = m.group(2)
+        t['to_user_id'] = 0
+        text = m.group(1).strip()
+      else:
+        if t['to_user_id'] == t['from_user_id']:
+          # Should not wrote a twimonial about self
+          continue
+        if not t['text'].lower().strip().endswith('#twimonial'):
+          # No #twimonial at the end of tweet
+          continue
+        # Remove @to_user and #twimonial
+        # 1+len(t['to_user'] => @to_user
+        # -10 => -len('#twimonial')
+        text = t['text'].strip()[1+len(t['to_user']):-10].strip()
 
       new_tqi = TQI(to_user=t['to_user'], to_user_id=t['to_user_id'],
           from_user=t['from_user'], from_user_id=t['from_user_id'],
@@ -99,10 +109,13 @@ def process_TQI():
   # Check if the twimonial writer follows
   logging.debug('Checking if %s follows %s...' % (tqi.from_user, tqi.to_user))
   # Using IDs results 403
-  f = fetch(TWITTER_EXISTS_URI % (tqi.from_user, tqi.to_user), config.TWITTER_ID, config.TWITTER_PW)
+  f = fetch(TWITTER_SHOW_URI % (tqi.from_user, tqi.to_user), config.TWITTER_ID, config.TWITTER_PW)
   if f.status_code == 200:
-    if f.content == 'true':
+    p_json = json.loads(f.content)
+    if p_json['relationship']['source']['following']:
       logging.debug('%s follows %s' % (tqi.from_user, tqi.to_user))
+      if tqi.to_user_id == 0:
+        tqi.to_user_id = p_json['relationship']['target']['id']
       # Does follow
       from_user, to_user = User.get_by_key_name([str(tqi.from_user_id),
           str(tqi.to_user_id)])
