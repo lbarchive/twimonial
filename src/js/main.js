@@ -90,6 +90,7 @@ function go_jmp() {
         break;
         }
       $('#jmp').replaceWith('<div id="jmp">' + result['shortUrl'] + '</div>');
+      $('span.page-uri').text(result['shortUrl']);
       }
     else
       humanMsg.displayMsg(json.errorMessage, 'error');
@@ -115,6 +116,7 @@ google.setOnLoadCallback(function () {
       .mouseleave(function() $(this).fadeTo('normal', 0.5));
     ele.after(t);
     });
+  $('span.page-uri').text(window.location.href);
   });
 
 // vim:ts=2:sw=2:et:

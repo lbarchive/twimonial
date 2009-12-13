@@ -130,7 +130,7 @@ body.user div.user-header a.profile-image img {
 div.twimonial {
   clear: both;
   margin-top: 10px;
-  height: 80px;
+  min-height: 80px;
   }
 
 div.twimonial:first-child {
