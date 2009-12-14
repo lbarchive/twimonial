@@ -103,9 +103,7 @@ google.setOnLoadCallback(function () {
     for (i=0; i<messages.length; i++)
       humanMsg.displayMsg(messages[i][1], messages[i][0]);
   init_error_indicator();
-  if ($('body.user').length == 1) {
-    $("#twimonials-tabs").tabs();
-    }
+  $('.jquery-ui-tabs').tabs();
   $('a.agree-button').attr('title', 'Click to agree this twimonial');
   $('#jmp').click(go_jmp).css('cursor', 'pointer').attr('title', 'Click to get a shortened url of this page');
   $('span.screen-name').each(function(index){

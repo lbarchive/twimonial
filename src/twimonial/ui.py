@@ -7,8 +7,8 @@ import config
 
 def render_write(tmpl_values, tmpl_name, request=None, response=None):
   # A helper function to set up some common stuff, render, then write to client
-  main_css_rev = '2009-12-14T03:50:41+0800'
-  main_js_rev = '2009-12-13T20:25:10+0800'
+  main_css_rev = '2009-12-14T10:13:21+0800'
+  main_js_rev = '2009-12-14T10:20:05+0800'
   if 'HEAD' not in tmpl_values:
     tmpl_values['HEAD'] = ''
   tmpl_values['HEAD'] += '  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/overcast/jquery-ui.css" type="text/css" rel="stylesheet"/>\n'
