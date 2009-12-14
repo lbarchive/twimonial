@@ -1,0 +1,18 @@
+<div class="twimonial {% cycle even,old %}">
+ <div class="leftbar">
+  <div><a class="profile-image" href="/user/{{ twimonial.to_user.screen_name }}"><img src="{{ twimonial.to_user.profile_image_url }}" title="{{ twimonial.to_user.screen_name }}"/></a></div>
+  <div><a class="agree-button" href="javascript:agree({{ twimonial.id }})">Agree</a></div>
+  <div class="recv-count" title="{{ twimonial.to_user.recvs }} testimonial{{ twimonial.to_user.recvs|pluralize }}">{{ twimonial.to_user.recvs }}</div>
+ </div>
+
+ <div class="content">
+  <div class="info">
+   About <span class="screen-name"><a href="/user/{{ twimonial.to_user.screen_name }}">{{ twimonial.to_user.screen_name }}</a></span>
+   <div class="right"><a class="profile-image" href="/user/{{ twimonial.from_user.screen_name }}"><img src="{{ twimonial.from_user.profile_image_url }}" title="{{ twimonial.from_user.screen_name }}"/></a></div>
+
+   <div class="from"> by <span class="screen-name"><a href="/user/{{ twimonial.from_user.screen_name }}">{{ twimonial.from_user.screen_name }}</a></span>
+<br/> <span class="time" title="{{ twimonial.created_at|date:"r" }}">{{ twimonial.created_at|timesince }} ago</span></div>
+  </div>
+  <div class="text">{{ twimonial.text }}</div>
+ </div>
+</div>

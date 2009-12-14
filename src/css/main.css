@@ -35,6 +35,7 @@ a img {
   width: 600px;
   margin: auto;
   text-align: center;
+  margin-bottom: 1em;
   }
 
 #header>.title>h1 {
@@ -76,7 +77,6 @@ a img {
 
 .nav a:hover {
   color: #fff;
-/*  text-shadow: #89f 0px 0px 2px;*/
   }
 
 /* Home Page */
@@ -156,6 +156,21 @@ div.twimonial.even {
 
 div.twimonial.old {
   background-color: #d9c9d9;
+  }
+
+div.twimonial div.recv-count {
+  -moz-border-radius: 3px;
+  background-color: #f00;
+  color: #fff;
+  width: 20px;
+  position: relative;
+  left: -20px;
+  top: -85px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  float: left;
+  opacity: 0.8;
   }
 
 div.twimonial div.leftbar {
@@ -266,7 +281,8 @@ div.twimonial div.content div.text {
 
 pre.tweet {
   -moz-border-radius: 5px;
-  background-color: #48c;
+  background-color: #248;
+  color: #fff;
   padding: 5px;
   white-space: normal;
   }

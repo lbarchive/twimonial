@@ -7,22 +7,19 @@ import config
 import tasks
 
 
-class RescheduleTasks(webapp.RequestHandler):
+class RecountRecvs(webapp.RequestHandler):
   
   def get(self):
     
     try:
-      deferred.defer(tasks.get_twimonials)
+      deferred.defer(tasks.recount_recvs)
+      self.response.out.write('Task added.')
     except TaskAlreadyExistsError:
-      pass
-    try:
-      deferred.defer(tasks.process_TQI)
-    except TaskAlreadyExistsError:
-      pass
+      self.response.out.write('Task already existed.')
 
 
 application = webapp.WSGIApplication([
-    ('/cron/reschedule_tasks', RescheduleTasks),
+    ('/admin/recount_recvs', RecountRecvs),
     ],
     debug=config.DEBUG)
 

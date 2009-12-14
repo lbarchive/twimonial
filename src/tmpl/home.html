@@ -7,26 +7,17 @@
 {% endblock %}
 
 {% block content %}
-<h2>What is Twimonial?</h2>
-<div>Twimonial is a webapp to read testimonials about Twitter users. You can also make a list for your Follow Friday recommendation so that your followers get to know why a user that you recommend should be followed. For Example:
+<div class="jquery-ui-tabs">
+<ul>
+  <li><a href="#home-tab-1">What is Twimonial?</a></li>
+  <li><a href="#home-tab-2">How to Add a Testimonial?</a></li>
+</ul>
+
+<div id="home-tab-1">Twimonial is a webapp to read testimonials about Twitter users. You can also make a list for your Follow Friday recommendation so that your followers get to know why a user that you recommend should be followed. For Example:
 <pre class="tweet">#FF @postsecret @cookingupastory @claraskitchen @ImprovEvery Read my #twimonial at <a href="http://j.mp/5Ikq95">http://j.mp/5Ikq95</a></pre>
 </div>
 
-<h2>Search</h2>
-<div class="menu">
-Read testimonials about <input id="f1_screen_name" type="text" value="livibetter"/> <input type="button" onclick="f1()" value="»"/>
-</div>
-
-<h2>Make Lists for Follow Friday #FF</h2>
-<div class="menu">
-List testimonials about <input id="f2_screen_names" type="text" value="postsecret cookingupastory claraskitchen ImprovEvery livibetter" title="Ten screen names at most"/> <input type="button" onclick="f2()" value="»"/>
-</div>
-
-<div class="menu">
-List testimonials about <input id="f3_screen_names" type="text" value="postsecret cookingupastory claraskitchen ImprovEvery" title="Ten screen names at most"/> by <input id="f3_screen_name" type="text" value="livibetter"/> <input type="button" onclick="f3()" value="»"/>
-</div>
-
-<h2>How to Add a Testimonial?</h2>
+<div id="home-tab-2">
 <p>
 It's very simple. You do not need to register here or authorize this website to access. You only need to tweet. There are two prerequisites to form a testimonial:
 </p>
@@ -67,4 +58,32 @@ A few facts you might want to know:
   <li>You can update testimonial, just tweet with new testimonial.</li>
   <li>The pages usually have minutes long caching time. Please be patient.</li>
 </ul>
+</div>
+
+</div>
+
+<h2>Search</h2>
+<div class="menu">
+Read testimonials about <input id="f1_screen_name" type="text" value="livibetter"/> <input type="button" onclick="f1()" value="»"/>
+</div>
+
+<h2>Make Lists for Follow Friday #FF</h2>
+<div class="menu">
+List testimonials about <input id="f2_screen_names" type="text" value="postsecret cookingupastory claraskitchen ImprovEvery livibetter" title="Ten screen names at most"/> <input type="button" onclick="f2()" value="»"/>
+</div>
+
+<div class="menu">
+List testimonials about <input id="f3_screen_names" type="text" value="postsecret cookingupastory claraskitchen ImprovEvery" title="Ten screen names at most"/> by <input id="f3_screen_name" type="text" value="livibetter"/> <input type="button" onclick="f3()" value="»"/>
+</div>
+
+<h2>Latest Five Testimonials</h2>
+{% for twimonial in latest_twimonials %}
+{% include "twimonial_full.html" %}
+{% endfor %}
+
+<h2>Most Popular Twitter Users</h2>
+{% for twimonial in pop_users_twimonials %}
+{% include "twimonial_pop_user.html" %}
+{% endfor %}
+
 {% endblock %}

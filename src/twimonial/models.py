@@ -44,6 +44,7 @@ class User(db.Model):
   normalized_screen_name = db.StringProperty(required=True)
   profile_image_url = db.StringProperty()
   updated = db.DateTimeProperty(required=True, auto_now=True, auto_now_add=True)
+  recvs = db.IntegerProperty(required=True, default=0)
 
   @classmethod
   def add(cls, id, screen_name, profile_image_url=None):
@@ -123,12 +124,18 @@ class User(db.Model):
       'id': self.key().name(),
       'screen_name': self.screen_name,
       'profile_image_url': self.profile_image_url,
+      'recvs': self.recvs,
       }
     if include_twimonials:
       d['latest_twimonials'] = [t.dictize() for t in self.get_latest_twimonials()]
       d['top_twimonials'] = [t.dictize() for t in self.get_top_twimonials()]
       d['written_twimonials'] = [t.dictize() for t in self.get_written_twimonials()]
     return d
+
+  def incr_recvs(self):
+
+    self.recvs = self.recvs + 1
+    self.put()
 
 
 class Twimonial(db.Model):

@@ -153,6 +153,7 @@ def process_TQI():
         t.scores = 0.0
       else:
         t = Twimonial(from_user=from_user, to_user=to_user, created_at=tqi.created_at, text=tqi.text)
+        to_user.incr_recvs()
       t.put()
       logging.debug('Twimonial saved')
     else:
@@ -187,3 +188,21 @@ def update_profile_image_url(key_name):
   user = User.get_by_key_name(key_name)
   if user:
     user.update_profile_image_url()
+
+
+def recount_recvs(key_name=None):
+
+  q = User.all()
+  if key_name:
+    q.filter('__key__ >', User.get_by_key_name(key_name).key())
+  u = q.get()
+  if not u:
+    # There is no user to recount
+    return
+  # TODO count more than 1000
+  q = Twimonial.all().filter('to_user =', u.key())
+  recvs = q.count()
+  if recvs != u.recvs:
+    u.recvs = recvs
+    u.put()
+  deferred.defer(recount_recvs, u.key().name())

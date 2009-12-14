@@ -6,7 +6,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
 
-from twimonial.models import Twimonial
+from twimonial.models import Twimonial, User
 from twimonial.ui import render_write
 import config
 
@@ -14,11 +14,30 @@ import config
 class HomePage(webapp.RequestHandler):
 
   def get(self):
-    
+
+    # Check cache first
+    cached_page = memcache.get('homepage')
+    if cached_page:
+      self.response.out.write(cached_page)
+      return
+
+    # Get latest five testimonials
+    latest_twimonials = [t.dictize() for t in Twimonial.all().order('-created_at').fetch(5)]
+    # Get populars
+    q = User.all()
+    q.order('-recvs')
+    q.order('-updated')
+    pop_users = q.fetch(5)
+    pop_users_twimonials = [u.get_top_twimonials(limit=1)[0].dictize() for u in pop_users]
     tmpl_values = {
+        'latest_twimonials': latest_twimonials,
+        'pop_users_twimonials': pop_users_twimonials,
         }
 
-    render_write(tmpl_values, 'home.html', self.request, self.response)
+    # Send out and cache it
+    rendered_page = render_write(tmpl_values, 'home.html', self.request,
+        self.response)
+    memcache.set('homepage', rendered_page, config.CACHE_TIME_HOMEPAGE)
 
   def head(self):
 
