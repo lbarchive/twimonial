@@ -3,6 +3,10 @@ body {
   font-family: "Times New Roman", Serif;
   }
 
+h1, h2, h3 {
+  text-shadow: 1px 1px 0 #ccc;
+  }
+
 a {
   color: #048;
   font-weight: bold;
@@ -38,10 +42,13 @@ a img {
   }
 
 #header>.title a {
+  background-image: url('/img/logo.png');
+  background-repeat: no-repeat;
   color: #fff;
   font-family: Times;
   text-shadow: 1px 1px 1px #000;
   font-size: 56px;
+  padding: 5px 80px;
   }
 
 #header>.title a:hover {
