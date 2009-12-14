@@ -1,7 +1,7 @@
 {% if twimonials %}
 <div>
 <h3>Here is a tweet made for you to tweet on Follow Friday!</h3>
-<pre class="tweet">Follow Friday #FF {% for twimonial in twimonials %}@{{ twimonial.to_user.screen_name }}{% if not forloop.last %}, {% endif %}{% endfor %} Read #twimonial at <span class="page-uri">URI</span></pre>
-Tip: Is the link too long? Click on «j.mp» on the top-right corner of this page, it will shorten this link!
+<input type="button" value="Tweet it!" onclick="window.open('http://twitter.com/?status=' + encodeURIComponent($('pre.tweet').text()))" style="float: right"/>
+<pre class="tweet">Follow Friday #FF {% for twimonial in twimonials %}@{{ twimonial.to_user.screen_name }}{% if not forloop.last %}, {% endif %}{% endfor %} Read #twimonial at <span class="page-uri" onclick="go_jmp()" title="Click to shorten this URI">URI</span></pre>
 </div>
 {% endif %}

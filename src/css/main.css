@@ -277,6 +277,15 @@ div.twimonial div.content div.text {
   margin: 2px;
   }
 
+span.page-uri {
+  -moz-border-radius: 5px;
+  background-color: #fff;
+  border: 1px solid #48c;
+  color: #24c;
+  cursor: pointer;
+  padding: 2px;
+  line-height: 24px;
+  }
 /* Misc */
 
 pre.tweet {
