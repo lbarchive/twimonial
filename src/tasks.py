@@ -4,6 +4,7 @@ import re
 
 from google.appengine.api import memcache
 from google.appengine.api.labs.taskqueue import TaskAlreadyExistsError
+from google.appengine.api.urlfetch import DownloadError
 from google.appengine.ext import db
 from google.appengine.ext import deferred
 
@@ -30,7 +31,12 @@ def get_twimonials():
     search_twimonial_uri += '&since_id=%s' % since_id
   # Searching
   logging.debug('Retrieving %s...' % search_twimonial_uri)
-  f = fetch(search_twimonial_uri, config.TWITTER_ID, config.TWITTER_PW)
+  try:
+    f = fetch(search_twimonial_uri, config.TWITTER_ID, config.TWITTER_PW)
+  except DownloadError:
+    logging.info('Caught Download Error on searching')
+    return
+
   if f.status_code == 200:
     # Parsing
     logging.debug(f.content)
