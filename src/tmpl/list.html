@@ -1,17 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
-  <title>Twimonial » List</title>
-{{ HEAD }}
-{{ config.BEFORE_HEAD_END }}
-</head>
-<body class="user">
-{% include "topbar.html" %}
-<div id="wrap">
-{% include "header.html" %}
-<div id="content">
+{% extends "base.html" %}
+
+{% block title %}List{% endblock %}
+
+{% block content %}
 <div id="twimonials-tabs">
 <div id="twimonials" class="twimonials">
 {% for twimonial in twimonials %}
@@ -22,10 +13,4 @@
 </div><!-- twimonials-tabs -->
 
 {% include "ff_tmpl.html" %}
-
-</div>
-{% include "footer.html" %}
-</div>
-{{ config.BEFORE_BODY_END }}
-</body>
-</html>
+{% endblock %}

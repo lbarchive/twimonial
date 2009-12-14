@@ -1,21 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
-  <title>Twimonial - Testimonials about Twitters</title>
-{{ HEAD }}
-{{ config.BEFORE_HEAD_END }}
-</head>
-<body>
-{% include "topbar.html" %}
-<div id="wrap">
-{% include "header.html" %}
-<div id="content">
-<div class="notice">Twimonial does not have {{ screen_name }} in database!</div>
-</div><!-- content -->
-{% include "footer.html" %}
-</div>
-{{ config.BEFORE_BODY_END }}
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}{{ screen_name }} does not in database{% endblock %}
+
+{% block content %}<div class="notice">{{ screen_name }} does not in database</div>{% endblock %}

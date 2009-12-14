@@ -1,16 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
-  <title>Twimonial » {{ user.screen_name }}</title>
-{{ HEAD }}
-{{ config.BEFORE_HEAD_END }}
-</head>
-<body class="user">
-<div id="wrap">
-{% include "header.html" %}
-<div id="content">
+{% extends "base.html" %}
+
+{% block title %}{{ user.screen_name }}{% endblock %}
+
+{% block content %}
 <div class="user-header">
 <a class="profile-image" href="http://twitter.com/{{ user.screen_name }}"><img src="{{ user.profile_image_url }}" title="{{ twimonial.from_user.screen_name }}"/></a>
 <h2>{{ user.screen_name }}</h2>
@@ -52,11 +44,4 @@
 <div class="notice">{{ user.screen_name }} has not written any Twimonial yet</div>
 {% endif %}
 </div>
-</div><!-- twimonials-tabs -->
-
-</div>
-{% include "footer.html" %}
-</div>
-{{ config.BEFORE_BODY_END }}
-</body>
-</html>
+{% endblock %}

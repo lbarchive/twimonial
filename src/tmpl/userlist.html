@@ -1,17 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
-  <title>Twimonial » {{ user.screen_name }} » List</title>
-{{ HEAD }}
-{{ config.BEFORE_HEAD_END }}
-</head>
-<body class="user">
-{% include "topbar.html" %}
-<div id="wrap">
-{% include "header.html" %}
-<div id="content">
+{% extends "base.html" %}
+
+{% block title %}{{ user.screen_name }} » List{% endblock %}
+
+{% block content %}
 <div class="user-header">
 {% if user.profile_image_url %}<a class="profile-image" href="http://user/{{ user.screen_name }}"><img src="{{ user.profile_image_url }}" title="{{ twimonial.from_user.screen_name }}"/></a>{% endif %}
 <h2><span class="screen-name"><a href="/user/{{ user.screen_name }}">{{ user.screen_name }}</a></span></h2>
@@ -27,10 +18,4 @@
 </div><!-- twimonials-tabs -->
 
 {% include "ff_tmpl.html" %}
-
-</div>
-{% include "footer.html" %}
-</div>
-{{ config.BEFORE_BODY_END }}
-</body>
-</html>
+{% endblock %}

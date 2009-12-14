@@ -102,17 +102,17 @@ a.profile-image:hover img {
 
 /* User Page */
 
-body.user div.user-header {
+div.user-header {
   text-align: center;
   }
 
-body.user div.user-header h2 {
+div.user-header h2 {
   font-size: 48px;
   display: inline;
   vertical-align: middle;
   }
 
-body.user div.user-header a.profile-image img {
+div.user-header a.profile-image img {
   vertical-align: middle;
   display: inline-block;
   }
