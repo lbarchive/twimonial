@@ -19,19 +19,19 @@ class AgreeJSON(webapp.RequestHandler):
     callback = self.request.get('callback') 
     id = self.request.get('id') 
     if id == '':
-      json_error(self.response, 'Invalid Twimonial ID!', callback)
+      json_error(self.response, 'Invalid testimonial ID!', callback)
       return
     
     twimonial = Twimonial.get_by_id(int(id))
     if not twimonial:
-      json_error(self.response, 'Invalid Twimonial ID!', callback)
+      json_error(self.response, 'Invalid testimonial ID!', callback)
       return
     
     if rate.incr_with_addr('%s' % id, self.request.remote_addr, 1, config.RATE_AGREE_DURATION, 'agree'):
-      json_error(self.response, 'You have agreeed this Twimonials!', callback)
+      json_error(self.response, 'You have agreeed this testimonials!', callback)
       return
     if rate.incr_with_addr('total', self.request.remote_addr, config.RATE_AGREE_MASS, config.RATE_AGREE_MASS_DURATION, 'agree'):
-      json_error(self.response, 'You have agreeed too many Twimonials in a short time!', callback)
+      json_error(self.response, 'You have agreeed too many testimonials in a short time!', callback)
       return
 
     twimonial.incr_agrees()

@@ -104,7 +104,7 @@ google.setOnLoadCallback(function () {
       humanMsg.displayMsg(messages[i][1], messages[i][0]);
   init_error_indicator();
   $('.jquery-ui-tabs').tabs();
-  $('a.agree-button').attr('title', 'Click to agree this');
+  $('a.agree-button').attr('title', 'Click to agree this testimonial');
   $('#jmp').click(go_jmp).css('cursor', 'pointer').attr('title', 'Click to get a shortened url of this page');
   $('span.screen-name').each(function(index){
     var ele = $(this);
