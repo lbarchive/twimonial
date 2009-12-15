@@ -104,11 +104,11 @@ google.setOnLoadCallback(function () {
       humanMsg.displayMsg(messages[i][1], messages[i][0]);
   init_error_indicator();
   $('.jquery-ui-tabs').tabs();
-  $('a.agree-button').attr('title', 'Click to agree this twimonial');
+  $('a.agree-button').attr('title', 'Click to agree this');
   $('#jmp').click(go_jmp).css('cursor', 'pointer').attr('title', 'Click to get a shortened url of this page');
   $('span.screen-name').each(function(index){
     var ele = $(this);
-    var t = $('<a href="http://twitter.com/"' + ele.text() + '"><img src="/img/twitter.png" title="Go to ' + ele.text() + '\'s Twitter profile page"/></a>');
+    var t = $('<a href="' + SERVICE_URI + ele.text() + '"><img src="/img/' + SERVICE_NAME.toLowerCase() + '.png" title="Go to ' + ele.text() + "'s " + SERVICE_NAME + ' profile page"/></a>');
     t.fadeTo('fast', 0.5)
       .mouseenter(function() $(this).fadeTo('normal', 1.0))
       .mouseleave(function() $(this).fadeTo('normal', 0.5));

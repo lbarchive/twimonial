@@ -1,4 +1,3 @@
-from random import randint
 import os
 
 from google.appengine.api import memcache
@@ -23,15 +22,9 @@ class HomePage(webapp.RequestHandler):
 
     # Get latest five testimonials
     latest_twimonials = [t.dictize() for t in Twimonial.all().order('-created_at').fetch(5)]
-    # Get populars
-    q = User.all()
-    q.order('-recvs')
-    q.order('-updated')
-    pop_users = q.fetch(5)
-    pop_users_twimonials = [u.get_top_twimonials(limit=1)[0].dictize() for u in pop_users]
     tmpl_values = {
         'latest_twimonials': latest_twimonials,
-        'pop_users_twimonials': pop_users_twimonials,
+        'pop_users_twimonials': User.get_popular_users_testimonials(),
         }
 
     # Send out and cache it

@@ -3,8 +3,8 @@ from google.appengine.ext import webapp
 from google.appengine.ext import deferred
 from google.appengine.ext.webapp.util import run_wsgi_app
 
+from twimonial import tasks
 import config
-import tasks
 
 
 class RecountRecvs(webapp.RequestHandler):

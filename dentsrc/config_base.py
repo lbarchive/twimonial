@@ -4,15 +4,15 @@ import os
 
 
 # For different service
-SITE_NAME = 'Twimonial'
-TRACKING_HASHTAG = '#twimonial'
-TWEET_ACTION_NAME = 'Tweet'
-SERVICE_NAME = 'Twitter'
-SERVICE_URI = 'http://twitter.com/'
-FOLLOWERS_NAME = 'Followers'
-FOLLOWED_NAME = 'Followed'
-FOLLOW_NAME = 'Follow'
-TWEET_NAME = 'Tweet'
+SITE_NAME = 'Dentimonial'
+TRACKING_HASHTAG = '#dentimonial'
+TWEET_ACTION_NAME = 'Send'
+SERVICE_NAME = 'Identi.ca'
+SERVICE_URI = 'http://identi.ca/'
+FOLLOWERS_NAME = 'Subscribers'
+FOLLOWED_NAME = 'Subscribed'
+FOLLOW_NAME = 'Subscribe to'
+TWEET_NAME = 'Notice'
 
 # Twitter Account
 TWITTER_ID = ''
@@ -26,9 +26,9 @@ MAIN_CSS_REV = '0'
 MAIN_JS_REV = '0'
 
 # APIs
-TWITTER_USERS_SHOW_URI = 'https://twitter.com/users/show.json?screen_name=%s'
-TWITTER_SEARCH_BASE_URI = 'https://search.twitter.com/search.json'
-TWITTER_SHOW_URI = 'https://twitter.com/friendships/show.json?source_screen_name=%s&target_screen_name=%s'
+TWITTER_USERS_SHOW_URI = 'https://identi.ca/api/users/show.json?screen_name=%s'
+TWITTER_SEARCH_BASE_URI = 'https://identi.ca/api/search.json'
+TWITTER_SHOW_URI = 'https://identi.ca/api/friendships/show.json?source_screen_name=%s&target_screen_name=%s'
 
 # Tasks
 TASK_GET_TWIMONIAL_INTERVAL = 300

@@ -8,8 +8,7 @@ from twimonial.util import fetch, td_seconds
 import config
 
 
-# user_id gets wrong account, WTF? 2009-12-12T08:53:57+0800
-TWITTER_USERS_SHOW_URI = 'https://twitter.com/users/show.json?screen_name=%s'
+TWITTER_USERS_SHOW_URI = config.TWITTER_USERS_SHOW_URI
 
 
 class Data(db.Model):
@@ -64,6 +63,7 @@ class User(db.Model):
     if not self.profile_image_url or \
         td_seconds(self.updated) >= config.CHECK_PROFILE_IMAGE_INTERVAL:
       # Time to check if there is a new profile image
+      from twimonial import tasks
       tasks.queue_profile_image(self.key().name())
 
   @staticmethod
@@ -95,6 +95,20 @@ class User(db.Model):
 
     twimonials = [cls.get_by_screen_name(screen_name) for screen_name in screen_names]
     return twimonials
+
+  @classmethod
+  def get_popular_users_testimonials(cls, limit=5, twim_limit=1):
+    # Get populars
+    q = User.all()
+    q.order('-recvs')
+    q.order('-updated')
+    pop_users = q.fetch(limit)
+    pop_users_twimonials = []
+    for u in pop_users:
+      t = u.get_top_twimonials(limit=twim_limit)
+      if t:
+        pop_users_twimonials.append(t[0].dictize())
+    return pop_users_twimonials
 
   def get_latest_twimonials(self, limit=20):
 
@@ -206,8 +220,5 @@ class TQI(db.Model):
   created_at = db.DateTimeProperty(required=True)
   text = db.StringProperty(required=True)
 
-# Could not import on the top, that would cause tasks.py could not import
-# anything from this module. This is ugly. Models should never have such
-# functions to operate/rely on other. We can add a cron to monitor new Users
-# but it costs much more than this trick.
-import tasks
+
+

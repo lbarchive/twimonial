@@ -15,12 +15,12 @@ from twimonial.util import fetch
 import config
 
 
-TWITTER_SEARCH_BASE_URI = 'https://search.twitter.com/search.json'
-SEARCH_TWIMONIAL_URI = TWITTER_SEARCH_BASE_URI + '?q=%23twimonial'
+TWITTER_SEARCH_BASE_URI = config.TWITTER_SEARCH_BASE_URI
+SEARCH_TWIMONIAL_URI = TWITTER_SEARCH_BASE_URI + '?q=%s' % config.TRACKING_HASHTAG.replace('#', '%23')
 
-TWITTER_SHOW_URI = 'https://twitter.com/friendships/show.json?source_screen_name=%s&target_screen_name=%s'
+TWITTER_SHOW_URI = config.TWITTER_SHOW_URI
 
-RE_TWIMONIAL = re.compile('(.*)#twimonial ?@([_a-zA-Z0-9]+)$')
+RE_TWIMONIAL = re.compile('(.*)%s ?@([_a-zA-Z0-9]+)$' % config.TRACKING_HASHTAG)
 
 
 def get_twimonials():
@@ -29,6 +29,9 @@ def get_twimonials():
   search_twimonial_uri = SEARCH_TWIMONIAL_URI
   if since_id:
     search_twimonial_uri += '&since_id=%s' % since_id
+    i_since_id = int(since_id)
+  else:
+    i_since_id = 0
   # Searching
   logging.debug('Retrieving %s...' % search_twimonial_uri)
   try:
@@ -55,12 +58,16 @@ def get_twimonials():
     # Starting processing
     tqis = []
     for t in results:
+      # Identi.ca's since_id didn't seem to apply on filter, it still return notices' ids less than since_id
+      if int(t['id']) < i_since_id:
+        return
       if t['text'].find('http') > -1:
         # Possibly a link, skip
         continue
       # A twimonial? Must have to_user and #twimonial must at the end, or in
       # this form 'blah blah #twimonial @user'
-      if 'to_user' not in t:
+      # Twitter would not supply to_user, identi.ca would set to_user to null
+      if 'to_user' not in t or t['to_user'] is None:
         # Doesn't have to_user, not using @replay
         m = RE_TWIMONIAL.match(t['text'])
         if not m:
@@ -72,15 +79,19 @@ def get_twimonials():
         if t['to_user_id'] == t['from_user_id']:
           # Should not wrote a twimonial about self
           continue
-        if not t['text'].lower().strip().endswith('#twimonial'):
+        if not t['text'].lower().strip().endswith(config.TRACKING_HASHTAG):
           # No #twimonial at the end of tweet
           continue
         # Remove @to_user and #twimonial
         # 1+len(t['to_user'] => @to_user
         # -10 => -len('#twimonial')
-        text = t['text'].strip()[1+len(t['to_user']):-10].strip()
+        text = t['text'].strip()[1+len(t['to_user']):-len(config.TRACKING_HASHTAG)].strip()
+      # For identi.ca, it's ids is string 2009-12-15T20:24:28+0800
+      t['from_user_id'] = int(t['from_user_id'])
+      t['to_user_id'] = int(t['to_user_id'])
 
-      new_tqi = TQI(to_user=t['to_user'], to_user_id=t['to_user_id'],
+      new_tqi = TQI(key_name=str(t['id']), # Just to prevent duplicates, in case
+          to_user=t['to_user'], to_user_id=t['to_user_id'],
           from_user=t['from_user'], from_user_id=t['from_user_id'],
           profile_image_url=t['profile_image_url'],
           created_at=datetime.strptime(t['created_at'], '%a, %d %b %Y %H:%M:%S +0000'),
@@ -121,7 +132,7 @@ def process_TQI():
     if p_json['relationship']['source']['following']:
       logging.debug('%s follows %s' % (tqi.from_user, tqi.to_user))
       if tqi.to_user_id == 0:
-        tqi.to_user_id = p_json['relationship']['target']['id']
+        tqi.to_user_id = int(p_json['relationship']['target']['id'])
       # Does follow
       from_user, to_user = User.get_by_key_name([str(tqi.from_user_id),
           str(tqi.to_user_id)])

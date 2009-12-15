@@ -1,32 +1,40 @@
 {% extends "base.html" %}
 
-{% block title %}Testimonials about Twitter users and Make them useful for Follow Friday{% endblock %}
+{% block title %}Testimonials about {{ config.SERVICE_NAME }} users and make them useful for Follow Friday{% endblock %}
 {% block head %}
-  <meta name="description" content="Read or write testimonials about Twitter users"/>
-  <meta name="keywords" content="testimonial, testimony, twimonial, Twitter, Follow Friday"/>
+  <meta name="description" content="Read or write testimonials about {{ config.SERVICE_NAME }} users"/>
+  <meta name="keywords" content="testimonial, testimony, {{ config.SITE_NAME}}, {{ config.SERVICE_NAME }}, Follow Friday"/>
 {% endblock %}
 
 {% block content %}
+<div style="-moz-border-radius: 10px; background-color: #cee1e9; font-style: italic; text-align: center; margin: 1em auto;">
+{% ifequal config.SERVICE_NAME "Twitter" %}
+Identi.ca users? Check out <a href="http://dentimonial.appspot.com/"><img src="http://dentimonial.appspot.com/favicon.ico"> Dentimonial</a>!
+{% else %}
+Twitter users? Check out <a href="http://twimonial.appspot.com/"><img src="http://twimonial.appspot.com/favicon.ico"> Twimonial</a>!
+{% endifequal %}
+</div>
+
 <div class="jquery-ui-tabs">
 <ul>
-  <li><a href="#home-tab-1">What is Twimonial?</a></li>
+  <li><a href="#home-tab-1">What is {{ config.SITE_NAME}}?</a></li>
   <li><a href="#home-tab-2">How to Add a Testimonial?</a></li>
 </ul>
 
-<div id="home-tab-1">Twimonial is a webapp to read testimonials about Twitter users. You can also make a list for your Follow Friday recommendation so that your followers get to know why a user that you recommend should be followed. For Example:
-<pre class="tweet">#FF @postsecret @cookingupastory @claraskitchen @ImprovEvery Read my #twimonial at <a href="http://j.mp/5Ikq95">http://j.mp/5Ikq95</a></pre>
+<div id="home-tab-1">{{ config.SITE_NAME}} is a webapp to read testimonials about {{ config.SERVICE_NAME }} users. You can also make a list for your Follow Friday recommendation so that your {{ config.FOLLOWERS_NAME|lower }} get to know why a user that you recommend should be {{ config.FOLLOWED_NAME|lower }}{% ifequal config.SERVICE_NAME "Twitter" %}, for Example:
+<pre class="tweet">#FF @postsecret @cookingupastory @claraskitchen @ImprovEvery Read my #twimonial at <a href="http://j.mp/5Ikq95">http://j.mp/5Ikq95</a></pre>{% else %}.{% endifequal %}
 </div>
 
 <div id="home-tab-2">
 <p>
-It's very simple. You do not need to register here or authorize this website to access. You only need to tweet. There are two prerequisites to form a testimonial:
+It's very simple. You do not need to register here{% ifequal config.SERVICE_NAME "Twitter" %} or authorize this website to access{% endifequal %}. You only need to {{ config.TWEET_ACTION_NAME }} on {{ config.SERVICE_NAME }}. {% ifequal config.SERVICE_NAME "Twitter" %}There are two prerequisites to form a testimonial:{% else %}Note that you must <i>{{ config.FOLLOW_NAME|lower }}</i> that {{ config.SERVICE_NAME }} user.{% endifequal %}
 </p>
-<ol>
+{% ifequal config.SERVICE_NAME "Twitter"%}<ol>
   <li>You and the testimonial receiver, both accounts need to be <i>public</i>.</li>
-  <li>You must <i>follow</i> that Twitter user.</li>
-</ol>
+  <li>You must <i>{{ config.FOLLOW_NAME|lower }}</i> that {{ config.SERVICE_NAME }} user.</li>
+</ol>{% endifequal %}
 <p>
-If you are going to write a testimonial about @screen_name, you will tweet in either way of the following sample tweets:
+If you are going to write a testimonial about @name, you will tweet in either way of the following sample {{ config.TWEET_NAME|lower }}s:
 </p>
 <div id="sample-tweets-tabs" class="jquery-ui-tabs">
 <ul>
@@ -35,18 +43,18 @@ If you are going to write a testimonial about @screen_name, you will tweet in ei
 </ul>
 <div id="broadcasting">
 <pre class="tweet">
-This guy is smart, intelligent, active and always replies. The tweets are mostly about geeky stuff, Linux, etc. <b>#twimonial</b> <b>@screen-name</b>
+This guy is smart, intelligent, active and always replies. The {{ config.TWEET_NAME|lower }}s are mostly about geeky stuff, Linux, etc. <b>{{ config.TRACKING_HASHTAG}}</b> <b>@name</b>
 </pre>
 <p>
-Place #twimonial and @screen-name at the end of tweet, you can not change the order. All of your followers can read your testimonial on their Twitter home page.
+Place {{ config.TRACKING_HASHTAG}} and @name at the end of {{ config.TWEET_NAME|lower }}, you can not change the order. All of your {{ config.FOLLOWERS_NAME|lower }} can read your testimonial on their {{ config.SERVICE_NAME }} home page.
 </p>
 </div>
 <div id="atreply">
 <pre class="tweet">
-<b>@screen-name</b> This guy is smart, intelligent, active and always replies. The tweets are mostly about geeky stuff, Linux, etc. <b>#twimonial</b>
+<b>@name</b> This guy is smart, intelligent, active and always replies. The {{ config.TWEET_NAME|lower }}s are mostly about geeky stuff, Linux, etc. <b>{{ config.TRACKING_HASHTAG}}</b>
 </pre>
 <p>
-Use @reply and put #twimonial at the end of tweet, you testimonial will not show on your followers' Twitter home page.
+Use @reply and put {{ config.TRACKING_HASHTAG }} at the end of {{ config.TWEET_NAME|lower }}, you testimonial will not show on your {{ config.FOLLOWERS_NAME|lower }}' {{ config.SERVICE_NAME }} home page.
 </p>
 </div>
 </div>
@@ -54,8 +62,8 @@ Use @reply and put #twimonial at the end of tweet, you testimonial will not show
 A few facts you might want to know:
 </p>
 <ul>
-  <li>You can only write a testimonial about a Twitter user.</li>
-  <li>You can update testimonial, just tweet with new testimonial.</li>
+  <li>You can only write a testimonial about a {{ config.SERVICE_NAME }} user.</li>
+  <li>You can update testimonial, just {{ config.TWEET_ACTION_NAME|lower }} with new testimonial.</li>
   <li>The pages usually have minutes long caching time. Please be patient.</li>
 </ul>
 </div>
@@ -69,11 +77,11 @@ Read testimonials about <input id="f1_screen_name" type="text" value="livibetter
 
 <h2>Make Lists for Follow Friday #FF</h2>
 <div class="menu">
-List testimonials about <input id="f2_screen_names" type="text" value="postsecret cookingupastory claraskitchen ImprovEvery livibetter" title="Ten screen names at most"/> <input type="button" onclick="f2()" value="»"/>
+List testimonials about <input id="f2_screen_names" type="text" value="{% ifequal config.SERVICE_NAME "Twitter" %}postsecret cookingupastory claraskitchen ImprovEvery{% else %}dentimonial{% endifequal %} livibetter" title="Ten screen names at most"/> <input type="button" onclick="f2()" value="»"/>
 </div>
 
 <div class="menu">
-List testimonials about <input id="f3_screen_names" type="text" value="postsecret cookingupastory claraskitchen ImprovEvery" title="Ten screen names at most"/> by <input id="f3_screen_name" type="text" value="livibetter"/> <input type="button" onclick="f3()" value="»"/>
+List testimonials about <input id="f3_screen_names" type="text" value="{% ifequal config.SERVICE_NAME "Twitter" %}postsecret cookingupastory claraskitchen ImprovEvery{% else %}dentimonial{% endifequal %}" title="Ten screen names at most"/> by <input id="f3_screen_name" type="text" value="livibetter"/> <input type="button" onclick="f3()" value="»"/>
 </div>
 
 <h2>Latest Five Testimonials</h2>
@@ -81,7 +89,7 @@ List testimonials about <input id="f3_screen_names" type="text" value="postsecre
 {% include "twimonial_full.html" %}
 {% endfor %}
 
-<h2>Most Popular Twitter Users</h2>
+<h2>Most Popular {{ config.SERVICE_NAME }} Users</h2>
 {% for twimonial in pop_users_twimonials %}
 {% include "twimonial_pop_user.html" %}
 {% endfor %}
