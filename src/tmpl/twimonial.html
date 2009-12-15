@@ -6,7 +6,8 @@
 
  <div class="content">
   <div class="info">
-   <span class="screen-name"><a href="/user/{{ twimonial.from_user.screen_name }}">{{ twimonial.from_user.screen_name }}</a></span> wrote:<span class="time" title="{{ twimonial.created_at|date:"r" }}">{{ twimonial.created_at|timesince }} ago</span>
+   <span class="screen-name"><a href="/user/{{ twimonial.from_user.screen_name }}">{{ twimonial.from_user.screen_name }}</a></span> wrote:
+   <span class="time" title="{{ twimonial.created_at|date:"r" }}"><a href="{{ twimonial.tweet_uri }}">{{ twimonial.created_at|timesince }} ago</a></span>
   </div>
   <div class="text">{{ twimonial.text }}</div>
  </div>

@@ -161,6 +161,7 @@ class Twimonial(db.Model):
   score = db.FloatProperty(default=0.0)
   text = db.StringProperty(required=True)
   updated = db.DateTimeProperty(required=True, auto_now=True, auto_now_add=True)
+  tweet_id = db.IntegerProperty(required=True)
 
   def incr_agrees(self):
 
@@ -177,6 +178,11 @@ class Twimonial(db.Model):
       'to_user': self.to_user.dictize(include_twimonials=False),
       'created_at': self.created_at,
       'text': self.text,
+      'tweet_id': self.tweet_id,
+      'tweet_uri': '%s%s/%d' % (config.SERVICE_URI, \
+          (self.from_user.screen_name + '/status' \
+            if config.SERVICE_NAME == 'Twitter' else '/notice'),
+              self.tweet_id),
       }
     return d
 
@@ -219,6 +225,4 @@ class TQI(db.Model):
   profile_image_url = db.StringProperty(required=True)
   created_at = db.DateTimeProperty(required=True)
   text = db.StringProperty(required=True)
-
-
-
+  tweet_id = db.IntegerProperty(required=True)

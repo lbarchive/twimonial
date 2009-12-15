@@ -95,7 +95,7 @@ def get_twimonials():
           from_user=t['from_user'], from_user_id=t['from_user_id'],
           profile_image_url=t['profile_image_url'],
           created_at=datetime.strptime(t['created_at'], '%a, %d %b %Y %H:%M:%S +0000'),
-          text=text,
+          text=text, tweet_id=int(t['id']),
           )
       tqis.append(new_tqi)
     db.put(tqis)
@@ -169,7 +169,7 @@ def process_TQI():
         t.agrees = 0
         t.scores = 0.0
       else:
-        t = Twimonial(from_user=from_user, to_user=to_user, created_at=tqi.created_at, text=tqi.text)
+        t = Twimonial(from_user=from_user, to_user=to_user, created_at=tqi.created_at, text=tqi.text, tweet_id=tqi.tweet_id)
         to_user.incr_recvs()
       t.put()
       logging.debug('Twimonial saved')
@@ -194,7 +194,8 @@ def process_TQI():
 def queue_profile_image(key_name):
 
   try:
-    deferred.defer(update_profile_image_url, key_name, _name='update-profile-image-%s' % key_name)
+    deferred.defer(update_profile_image_url, key_name)
+    #deferred.defer(update_profile_image_url, key_name, _name='update-profile-image-%s' % key_name)
   except TaskAlreadyExistsError:
     pass
 

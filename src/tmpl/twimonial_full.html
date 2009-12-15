@@ -10,7 +10,7 @@
    <div class="right"><a class="profile-image" href="/user/{{ twimonial.from_user.screen_name }}"><img src="{{ twimonial.from_user.profile_image_url }}" title="{{ twimonial.from_user.screen_name }}"/></a></div>
 
    <div class="from"> by <span class="screen-name"><a href="/user/{{ twimonial.from_user.screen_name }}">{{ twimonial.from_user.screen_name }}</a></span>
-<br/> <span class="time" title="{{ twimonial.created_at|date:"r" }}">{{ twimonial.created_at|timesince }} ago</span></div>
+<br/> <span class="time" title="{{ twimonial.created_at|date:"r" }}"><a href="{{ twimonial.tweet_uri }}">{{ twimonial.created_at|timesince }} ago</a></span></div>
   </div>
   <div class="text">{{ twimonial.text }}</div>
  </div>

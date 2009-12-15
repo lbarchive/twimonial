@@ -4,7 +4,9 @@
   <a class="agree-button" href="javascript:agree({{ twimonial.id }})">Agree</a>
  </div>
  <div class="content">
-  <div class="info">About <span class="screen-name"><a href="/user/{{ twimonial.to_user.screen_name }}">{{ twimonial.to_user.screen_name }}</a></span>:<span class="time" title="{{ twimonial.created_at|date:"r" }}">{{ twimonial.created_at|timesince }} ago</span></div>
+  <div class="info">About
+    <span class="screen-name"><a href="/user/{{ twimonial.to_user.screen_name }}">{{ twimonial.to_user.screen_name }}</a></span>:
+    <span class="time" title="{{ twimonial.created_at|date:"r" }}"><a href="{{ twimonial.tweet_uri }}">{{ twimonial.created_at|timesince }} ago</a></span></div>
   <div class="text">{{ twimonial.text }}</div>
  </div>
 </div>
