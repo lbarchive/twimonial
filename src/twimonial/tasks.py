@@ -33,7 +33,6 @@ def get_twimonials():
   else:
     i_since_id = 0
   # Searching
-  logging.debug('Retrieving %s...' % search_twimonial_uri)
   try:
     f = fetch(search_twimonial_uri, config.TWITTER_ID, config.TWITTER_PW)
   except DownloadError:
@@ -168,6 +167,7 @@ def process_TQI():
         t.text = tqi.text
         t.agrees = 0
         t.scores = 0.0
+        t.tweet_id = tqi.tweet_id
       else:
         t = Twimonial(from_user=from_user, to_user=to_user, created_at=tqi.created_at, text=tqi.text, tweet_id=tqi.tweet_id)
         to_user.incr_recvs()

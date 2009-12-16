@@ -24,5 +24,5 @@ def render_write(tmpl_values, tmpl_name, request=None, response=None):
   
   render_html = template.render(path, tmpl_values)
   if response:
-    response.out.write(template.render(path, tmpl_values))
+    response.out.write(render_html)
   return render_html
