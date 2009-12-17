@@ -110,8 +110,8 @@ google.setOnLoadCallback(function () {
     var ele = $(this);
     var t = $('<a href="' + SERVICE_URI + ele.text() + '"><img src="/img/' + SERVICE_NAME.toLowerCase() + '.png" title="Go to ' + ele.text() + "'s " + SERVICE_NAME + ' profile page"/></a>');
     t.fadeTo('fast', 0.5)
-      .mouseenter(function() $(this).fadeTo('normal', 1.0))
-      .mouseleave(function() $(this).fadeTo('normal', 0.5));
+      .mouseenter(function() {$(this).fadeTo('normal', 1.0)})
+      .mouseleave(function() {$(this).fadeTo('normal', 0.5)});
     ele.after(t);
     });
   $('span.page-uri').text(window.location.href);

@@ -105,8 +105,8 @@ def get_twimonials():
 #  elif f.status_code == 404:
 #    # since_id is too old
   else:
-    logging.error('Unable to search, status_code: %d'\
-        % f.status_code)
+    logging.error('Unable to search, status_code: %d, content: %s'\
+        % (f.status_code, f.content))
 #    deferred.defer(get_twimonials,
 #        _countdown=config.TASK_GET_TWIMONIAL_INTERVAL)
 
