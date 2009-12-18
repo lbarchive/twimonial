@@ -179,12 +179,15 @@ class Twimonial(db.Model):
       'created_at': self.created_at,
       'text': self.text,
       'tweet_id': self.tweet_id,
-      'tweet_uri': '%s%s/%d' % (config.SERVICE_URI, \
-          (self.from_user.screen_name + '/status' \
-            if config.SERVICE_NAME == 'Twitter' else '/notice'),
-              self.tweet_id),
+      'tweet_uri': self.get_tweet_uri(),
       }
     return d
+
+  def get_tweet_uri(self):
+
+    return '%s%s/%d' % (config.SERVICE_URI, (
+        self.from_user.screen_name + '/status' \
+          if config.SERVICE_NAME == 'Twitter' else '/notice'), self.tweet_id)
 
   @classmethod
   def get_tos_from(cls, to_user_screen_names, from_user, limit=10):

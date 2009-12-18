@@ -1,0 +1,46 @@
+<html>
+<head>
+<script>
+  var cached_JSON = {};
+
+  chrome.extension.onRequest.addListener(
+    function(request, sender) {
+      if (request.msg == "twimonialIcon") {
+  	    // Check if there is testimonials
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://twimonial.appspot.com/user/" + request.screen_name + "/top.json", true);
+        xhr.send();
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4) {
+            // JSON.parse does not evaluate the attacker's scripts.
+            var resp = JSON.parse(xhr.responseText);
+            cached_JSON[sender.tab.id] = resp;
+            if (resp.error != 0 || resp.top_testimonials.length == 0) {
+              chrome.pageAction.setIcon({ tabId: sender.tab.id,
+                path: "icon1.png"
+                });
+              chrome.pageAction.setTitle({ tabId: sender.tab.id,
+                title: "Click to write a testimonial..."
+                });
+              }
+            else {
+              chrome.pageAction.setIcon({ tabId: sender.tab.id,
+                path: "icon.png"
+                });
+              chrome.pageAction.setTitle({ tabId: sender.tab.id,
+                title: "Click to view testimonials..."
+                });
+              }
+            chrome.pageAction.show(sender.tab.id);
+          }
+        }
+      }
+    });
+
+  chrome.tabs.onRemoved.addListener(function(tabId) {
+    delete cached_JSON[tabId];
+    });
+</script>
+</head>
+</html>
+<!-- vim: set sw=2 ts=2 et: -->

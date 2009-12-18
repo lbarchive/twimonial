@@ -1,0 +1,195 @@
+<!--
+ * Copyright (c) 2009 The Chromium Authors. All rights reserved.  Use of this
+ * source code is governed by a BSD-style license that can be found in the
+ * LICENSE file.
+-->
+<html>
+<head>
+<style>
+body {
+  font-family: Sans;
+  width: 480px;
+  }
+div.wrapper {
+  -webkit-border-radius: 5px;
+  background-color: #86a2ae;
+  padding: 5px;
+  }
+div#content>h1 {
+  cursor: pointer;
+  margin: 5px;
+  text-align: center;
+  }
+div#content>h1>img {
+  width: 48px;
+  height: 48px;
+  }
+div#content>h1>* {
+  vertical-align: middle;
+  }
+div.testimonial,
+div.testimonial * {
+  cursor: pointer;
+  }
+div.testimonial {
+  -webkit-border-radius: 5px;
+  padding: 5px;
+  margin-top: 5px;
+  min-height: 48px;
+  }
+div.testimonial.even {
+  background-color: #d9d9c9;
+  }
+div.testimonial.odd {
+  background-color: #d9c9d9;
+  }
+div.testimonial.highlight {
+  background-color: #ffc9c9;
+  }
+div.testimonial>img {
+  clear: both;
+  float: left;
+  }
+div.testimonial>div.content {
+  margin-left: 53px;
+  }
+div#no-testimonials {
+  visibility: hidden;
+  }
+div#no-testimonials>h1 {
+  margin: 5px;
+  text-align: center;
+  }
+div#write-pane {
+  -webkit-border-radius: 5px;
+  background-color: #ccc;
+  padding: 5px 5px 10px 5px;
+  }
+textarea#status {
+  -webkit-border-radius: 3px;
+  width: 460px;
+  }
+div#footer {
+  clear: both;
+  color: #fff;
+  font-family: Times;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 1px 1px 1px #000;
+  }
+div#footer a {
+  background-image: url('icon.png');
+  background-repeat: no-repeat; 
+  color: #fff;
+  padding-left: 20px;
+  text-decoration: none;
+  }
+div#footer a:hover {
+  color: #48c;
+  text-decoration: none;
+  }
+</style>
+<script>
+function onClick() {
+  chrome.tabs.create({ url: this.tweet_uri });
+  window.close();
+  }
+function onMouseover() {
+  this.className += ' highlight';
+  }
+function onMouseout() {
+  this.className = this.className.replace(' highlight', '');
+  }
+
+function main() {
+  chrome.tabs.getSelected(null, function(tab) {
+    var screen_name = tab.url.replace('http://twitter.com/', '');
+    var eles = document.getElementsByClassName('screen-name')
+    for (var i=0; i<eles.length; i++)
+      eles[i].innerText = screen_name;
+    var content = document.getElementById('content');
+
+    var json = chrome.extension.getBackgroundPage().cached_JSON[tab.id];
+    if (json.error != 0 || json.top_testimonials.length == 0) {
+      var ele = document.getElementById('no-testimonials');
+      ele.style.visibility = 'visible';
+      return;
+      }
+    var h1 = document.createElement('h1');
+    var img = document.createElement('img');
+    img.src = json.user.profile_image_url;
+    h1.appendChild(img);
+    h1.appendChild(document.createTextNode(' ' + json.user.screen_name));
+    h1.link = 'http://twitter.com/' + json.user.screen_name;
+    h1.addEventListener("click", function() {
+      chrome.tabs.create({ url: this.link});
+      window.close();
+      });
+    content.appendChild(h1);
+
+    var even = true;
+    for (i=0; i<json.top_testimonials.length; i++) {
+      var twim = json.top_testimonials[i];
+      var div = document.createElement('div');
+      div.className = 'testimonial';
+      if (even)
+        div.className += ' even'
+      else
+        div.className += ' odd';
+      even = !even;
+
+      div.tweet_uri = twim.tweet_uri;
+      div.addEventListener("click", onClick);
+      div.addEventListener("mouseover", onMouseover);
+      div.addEventListener("mouseout", onMouseout);
+      
+      var img = document.createElement('img');
+      img.src = twim.from_user.profile_image_url;
+      div.appendChild(img);
+
+      var div1 = document.createElement('div')
+      div1.className = 'content';
+      div1.appendChild(document.createTextNode(twim.from_user.screen_name));
+
+      div1.appendChild(document.createTextNode(' wrote '));
+      div1.appendChild(document.createElement('br'));
+      div1.appendChild(document.createTextNode(twim.text));
+      div.appendChild(div1);
+      content.appendChild(div);
+	    }
+    });
+  }
+function go_tweet() {
+  chrome.tabs.getSelected(null, function(tab) {
+    var screen_name = tab.url.replace('http://twitter.com/', '');
+    var status = encodeURIComponent(document.getElementById('status').value + ' #twimonial @' + screen_name);
+    chrome.tabs.create({ url: 'http://twitter.com/home?status=' + status });
+    window.close();
+    });
+  }
+function go_twimonial() {
+  chrome.tabs.create({ url: 'http://twimonial.appspot.com/' });
+  window.close();
+  }
+</script>
+</head>
+<body onload="javascript:main()">
+<div class="wrapper">
+  <div id="content">
+  </div>
+  <div id="no-testimonials">
+    <h1>No testimonials found</h1>
+  </div>
+  <div id="write-pane">
+    <div>Why not write one about <span class="screen-name"></span>?</div>
+    <div><textarea cols="40" rows="2" id="status" name="status">Write your testimonial here...</textarea></div>
+    <div style="float: right"><input type="submit" value="Go to tweet it!" onclick="go_tweet()"/></div>
+    <div>Note that you must follow <span class="screen-name"></span></div>
+  </div>
+  <div id="footer">
+    <a href="http://twimonial.appspot.com/" onclick="go_twimonial()">Twimonial</a>
+  </div>
+</div>
+</body>
+</html>
+<!-- vim: set sw=2 ts=2 et: -->

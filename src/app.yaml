@@ -15,6 +15,9 @@ handlers:
 - url: /js
   static_dir: js
  
+- url: /ce
+  static_dir: ce
+ 
 - url: /robots.txt
   static_files: robots.txt
   upload: robots.txt
@@ -26,6 +29,12 @@ handlers:
 
 - url: /user/[_a-zA-Z0-9]+
   script: user.py
+
+- url: /user/[_a-zA-Z0-9]+/top.rss
+  script: API.py
+
+- url: /user/[_a-zA-Z0-9]+/top.json
+  script: API.py
 
 - url: /userlist/[_a-zA-Z0-9]+/[-_a-zA-Z0-9]+
   script: user.py

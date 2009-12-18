@@ -1,0 +1,22 @@
+{
+  "name": "Twimonial",
+  "version": "0.1",
+  "description": "Read testimonials about Twitter users",
+  "page_action": {
+    "default_icon": "icon.png",
+	"popup": "popup.html"
+  },
+  "background_page": "background.html",
+  "icons": { "48": "icon48.png",
+             "128": "icon128.png" },
+  "content_scripts": [
+    {
+      "matches": ["http://twitter.com/*"],
+      "js": ["checker.js"]
+    }
+  ],
+  "permissions": [
+    "tabs",
+	"http://twimonial.appspot.com/user/*"
+  ]
+}
