@@ -7,9 +7,10 @@
 {% endblock %}
 
 {% block content %}
-<div style="-moz-border-radius: 10px; background-color: #cee1e9; font-style: italic; text-align: center; margin: 1em auto;">
+<div style="-moz-border-radius: 10px; -webkit-border-radius: 10px; background-color: #cee1e9; font-style: italic; text-align: center; margin: 1em auto;">
 {% ifequal config.SERVICE_NAME "Twitter" %}
-Identi.ca users? Check out <a href="http://dentimonial.appspot.com/"><img src="http://dentimonial.appspot.com/favicon.ico"> Dentimonial</a>!
+Identi.ca users? Check out <a href="http://dentimonial.appspot.com/"><img src="http://dentimonial.appspot.com/favicon.ico"> Dentimonial</a>!<br/>
+Chrome users? try out <a href="https://chrome.google.com/extensions/detail/enkhdoocfejiccigkjjjlnemgkpeghno">this extension</a>!
 {% else %}
 Twitter users? Check out <a href="http://twimonial.appspot.com/"><img src="http://twimonial.appspot.com/favicon.ico"> Twimonial</a>!
 {% endifequal %}
