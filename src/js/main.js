@@ -44,7 +44,7 @@ function agree(id) {
 
 // Read Twimonials of a Twitter
 function f1() {
-  var screen_name = $('#f1_screen_name').val().replace('@', '');
+  var screen_name = $('#f1_screen_name').val().replace(/@/g, '');
   if (screen_name.replace(/[_a-zA-Z0-9]/g, '')) {
     humanMsg.displayMsg(screen_name + ' is not a valid screen name!', 'error');
     return
@@ -55,7 +55,7 @@ function f1() {
 
 // List most agreed over time
 function f2() {
-  var screen_names = $('#f2_screen_names').val().replace('@', '').split(/ +/);
+  var screen_names = $('#f2_screen_names').val().replace(/@/g, '').split(/ +/);
   for (var i=0; i<screen_names.length; i++)
     if (screen_names[i].replace(/[_a-zA-Z0-9]/g, '')) {
       humanMsg.displayMsg(screen_names[i] + ' is not a valid screen name!', 'error');
@@ -67,12 +67,12 @@ function f2() {
 
 // List Twimonials written by screen_name
 function f3() {
-  var screen_name = $('#f3_screen_name').val().replace('@', '');
+  var screen_name = $('#f3_screen_name').val().replace(/@/g, '');
   if (screen_name.replace(/[_a-zA-Z0-9]/g, '')) {
     humanMsg.displayMsg(screen_name + ' is not a valid screen name!', 'error');
     return
     }
-  var screen_names = $('#f3_screen_names').val().replace('@', '').split(/ +/);
+  var screen_names = $('#f3_screen_names').val().replace(/@/g, '').split(/ +/);
   for (var i=0; i<screen_names.length; i++)
     if (screen_names[i].replace(/[_a-zA-Z0-9]/g, '')) {
       humanMsg.displayMsg(screen_names[i] + ' is not a valid screen name!', 'error');
