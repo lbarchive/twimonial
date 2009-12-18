@@ -94,6 +94,7 @@ div.menu {
 
 a.profile-image img {
   -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
   border: 1px solid #000;
   width: 48px;
   height: 48px;
@@ -140,6 +141,7 @@ div.user-header a.profile-image img {
 
 div.twimonial {
   -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
   clear: both;
   margin-top: 10px;
   min-height: 80px;
@@ -160,6 +162,7 @@ div.twimonial.old {
 
 div.twimonial div.recv-count {
   -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
   background-color: #f00;
   color: #fff;
   width: 20px;
@@ -180,6 +183,7 @@ div.twimonial div.leftbar {
 
 div.twimonial div.leftbar a.agree-button {
   -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
   color: #484;
   font-size: 12px;
   border: 2px solid #040;
@@ -226,6 +230,7 @@ div.twimonial div.content div.text {
 
 .notice {
   -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
   border: 3px solid #488;
   width: 90%;
   margin: 10px auto;
@@ -278,6 +283,7 @@ div.twimonial div.content div.text {
 
 span.page-uri {
   -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
   background-color: #fff;
   border: 1px solid #48c;
   color: #24c;
@@ -289,6 +295,7 @@ span.page-uri {
 
 pre.tweet {
   -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
   background-color: #248;
   color: #fff;
   padding: 5px;
