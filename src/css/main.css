@@ -90,6 +90,21 @@ div.menu {
   margin: 10px auto;
   }
 
+#fm-testimonial {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  font-family: Arial;
+  font-size: 1.5em;
+  width: 100%;
+  }
+#fm-count {
+  color: #484;
+  font-size: 2em;
+  font-weight: bold;
+  float: right;
+  }
+
 /* Profile Image */
 
 a.profile-image img {

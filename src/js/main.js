@@ -97,6 +97,18 @@ function go_jmp() {
     });
   }
 
+function update_count() {
+    $('#fm-count').text(140 - $('#fm-testimonial').val().length - 13 - $('#fm-to').val().length);
+    }
+
+function tweet_testimonial() {
+    if ($('#fm-testimonial').val() == '' ||  $('#fm-to').val() == '')
+      return;
+    var tweet = $('#fm-testimonial').val() + ' #twimonial @' + $('#fm-to').val();
+    window.open('http://twitter.com/home?status=' + encodeURIComponent(tweet));
+    }
+
+
 google.setOnLoadCallback(function () {
   var messages = window.lso_messages;
   if (messages)
@@ -115,6 +127,11 @@ google.setOnLoadCallback(function () {
     ele.after(t);
     });
   $('span.page-uri').text(window.location.href);
+  $('#fm-testimonial').keyup(update_count);
+  $('#fm-testimonial').change(update_count);
+  $('#fm-to').keyup(update_count);
+  $('#fm-to').change(update_count);
+  update_count();
   });
 
 // vim:ts=2:sw=2:et:
