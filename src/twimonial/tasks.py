@@ -89,6 +89,8 @@ def get_twimonials():
       t['from_user_id'] = int(t['from_user_id'])
       t['to_user_id'] = int(t['to_user_id'])
 
+      # XXX from/to_user_id is not the real Twitter ID
+      # http://code.google.com/p/twitter-api/issues/detail?id=214
       new_tqi = TQI(key_name=str(t['id']), # Just to prevent duplicates, in case
           to_user=t['to_user'], to_user_id=t['to_user_id'],
           from_user=t['from_user'], from_user_id=t['from_user_id'],
@@ -130,8 +132,11 @@ def process_TQI():
     p_json = json.loads(f.content)
     if p_json['relationship']['source']['following']:
       logging.debug('%s follows %s' % (tqi.from_user, tqi.to_user))
-      if tqi.to_user_id == 0:
-        tqi.to_user_id = int(p_json['relationship']['target']['id'])
+      # XXX from/to_user_id is not the real Twitter ID
+      # http://code.google.com/p/twitter-api/issues/detail?id=214
+      # So must override with correct IDs from friends/show API
+      tqi.from_user_id = int(p_json['relationship']['source']['id'])
+      tqi.to_user_id = int(p_json['relationship']['target']['id'])
       # Does follow
       from_user, to_user = User.get_by_key_name([str(tqi.from_user_id),
           str(tqi.to_user_id)])
