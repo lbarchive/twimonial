@@ -158,6 +158,7 @@ google.setOnLoadCallback(function () {
     update_count();
     }
   $(window).scroll(jumpto_relocate);
+  jump_relocate();
   });
 
 // vim:ts=2:sw=2:et:
