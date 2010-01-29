@@ -14,12 +14,13 @@ import config
 class UserPage(webapp.RequestHandler):
 
   def get(self, screen_name):
-   
-    # Check cache first
-    cached_page = memcache.get(screen_name, 'userpage')
-    if cached_page:
-      self.response.out.write(cached_page)
-      return
+  
+    if config.CACHE:
+      # Check cache first
+      cached_page = memcache.get(screen_name, 'userpage')
+      if cached_page:
+        self.response.out.write(cached_page)
+        return
 
     user = User.get_by_screen_name(screen_name)
     if not user:
@@ -35,8 +36,9 @@ class UserPage(webapp.RequestHandler):
     # Send out and cache it
     rendered_page = render_write(tmpl_values, 'user.html', self.request,
         self.response)
-    memcache.set(screen_name, rendered_page, config.CACHE_TIME_USERPAGE,
-        namespace='userpage')
+    if config.CACHE:
+      memcache.set(screen_name, rendered_page, config.CACHE_TIME_USERPAGE,
+          namespace='userpage')
 
   def head(self, screen_name):
 
@@ -51,11 +53,13 @@ class UserListPage(webapp.RequestHandler):
     screen_names = [name for name in screen_names_string.split('-') if name][:limit]
     screen_names.sort()
     screen_names_string = '-'.join(screen_names)
-    # Check cache first
-    cached_page = memcache.get(screen_names_string, 'userlist_%s' % screen_name)
-    if cached_page:
-      self.response.out.write(cached_page)
-      return
+
+    if config.CACHE:
+      # Check cache first
+      cached_page = memcache.get(screen_names_string, 'userlist_%s' % screen_name)
+      if cached_page:
+        self.response.out.write(cached_page)
+        return
 
     user = User.get_by_screen_name(screen_name)
     if not user:
@@ -80,8 +84,9 @@ class UserListPage(webapp.RequestHandler):
     # Send out and cache it
     rendered_page = render_write(tmpl_values, 'userlist.html', self.request,
         self.response)
-    memcache.set(screen_names_string, rendered_page,
-        config.CACHE_TIME_USERLISTPAGE, namespace='userlist_%s' % screen_name)
+    if config.CACHE:
+      memcache.set(screen_names_string, rendered_page,
+          config.CACHE_TIME_USERLISTPAGE, namespace='userlist_%s' % screen_name)
 
 
 application = webapp.WSGIApplication([

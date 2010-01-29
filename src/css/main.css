@@ -7,6 +7,10 @@ h1, h2, h3 {
   text-shadow: 1px 1px 0 #ccc;
   }
 
+h2.twimonials {
+  padding-top: 1em;
+  }
+
 a {
   color: #048;
   font-weight: bold;
@@ -27,6 +31,13 @@ a img {
   border: none;
   }
 
+input[type=text] {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #000;
+  }
+
 .right {
   float: right;
   }
@@ -35,7 +46,6 @@ a img {
   width: 600px;
   margin: auto;
   text-align: center;
-  margin-bottom: 1em;
   }
 
 #header>.title>h1 {
@@ -66,17 +76,29 @@ a img {
 
 .nav a {
   font-family: Arial;
-  font-size: 16px;
+  font-size: 1em;
   font-weight: bold;
   font-style: normal;
   text-decoration: none;
-  color: #363;
+  color: #060;
   text-shadow: 1px 1px 0 #66c;
   margin: 0 0.5em;
   }
 
 .nav a:hover {
-  color: #fff;
+  text-shadow: 1px 1px 0 #0c0;
+  }
+
+#footer {
+  clear: both;
+  }
+
+#creator {
+  padding: 1em auto;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  color: #444;
+  font-family: Arial;
   }
 
 /* Home Page */
@@ -110,6 +132,7 @@ div.menu {
 a.profile-image img {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  border-radius: 3px;
   border: 1px solid #000;
   width: 48px;
   height: 48px;
@@ -140,12 +163,29 @@ div.user-header a.profile-image img {
   display: inline-block;
   }
 
-#footer {
-  clear: both;
+div.jumpto_anchor {
   margin-top: 1em;
-  color: #444;
-  font-family: Arial;
-  font-size: 12px;
+  }
+
+div.jumpto {
+  background-color: #fff;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  width: 590px;
+  padding-left: 5px;
+  padding-right: 5px;
+  }
+
+div.jumpto.stick {
+  -moz-border-top-left-radius: 0;
+  -moz-border-top-right-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  -webkit-border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  position: fixed;
+  top: 0;
   }
 
 /* Twimonial */
@@ -178,12 +218,13 @@ div.twimonial.old {
 div.twimonial div.recv-count {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  border-radius: 3px;
   background-color: #f00;
   color: #fff;
   width: 20px;
   position: relative;
   left: -20px;
-  top: -85px;
+  top: -110px;
   text-align: center;
   font-weight: bold;
   font-size: 20px;
@@ -197,18 +238,10 @@ div.twimonial div.leftbar {
   }
 
 div.twimonial div.leftbar a.agree-button {
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  color: #484;
-  font-size: 12px;
-  border: 2px solid #040;
-  padding: 2px;
-  text-decoration: none;
-  }
-
-div.twimonial div.leftbar a.agree-button:hover {
-  background-color: #484;
-  color: #c00;
+  height: 36px;
+  width: 36px;
+  display: inline-block;
+  cursor: pointer;
   }
 
 div.twimonial a.profile-image {
@@ -284,6 +317,10 @@ div.twimonial div.content div.text {
 
 /* j.mp */
 
+span.page-uri {
+  cursor: pointer;
+  }
+
 #jmp {
   color: #fff;
   text-shadow: 0 0 5px #ffb138;
@@ -296,13 +333,13 @@ div.twimonial div.content div.text {
   margin: 2px;
   }
 
-span.page-uri {
+pre.tweet span.page-uri {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
+  border-radius: 5px;
   background-color: #fff;
   border: 1px solid #48c;
   color: #24c;
-  cursor: pointer;
   padding: 2px;
   line-height: 24px;
   }

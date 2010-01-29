@@ -8,14 +8,11 @@
 <h2>{{ user.screen_name }}</h2>
 </div>
 
-<div id="twimonials-tabs" class="jquery-ui-tabs">
-<ul>
-  <li><a href="#top-twimonials">Most Agreed Over Time</a></li>
-  <li><a href="#latest-twimonials">Latest</a></li>
-  <li><a href="#written-twimonials">Has Written</a></li>
-</ul>
+<div class="jumpto_anchor"></div>
+<div class="jumpto">Jump to: <a href="#top-twimonials">Most Agreed</a> &bull; <a href="#latest-twimonials">Latest</a> &bull; <a href="#written-twimonials">Has Written</a></div>
 
-<div id="top-twimonials" class="twimonials">
+<h2 id="top-twimonials" class="twimonials">Most Agreed Over Time About {{ user.screen_name }}</h2>
+<div class="twimonials">
 {% if user.top_twimonials %}
 {% for twimonial in user.top_twimonials %}
 {% include "twimonial.html" %}
@@ -25,7 +22,8 @@
 {% endif %}
 </div>
 
-<div id="latest-twimonials" class="twimonials">
+<h2 id="latest-twimonials" class="twimonials">Latest Testimonials About {{ user.screen_name }}</h2>
+<div class="twimonials">
 {% if user.latest_twimonials %}
 {% for twimonial in user.latest_twimonials %}
 {% include "twimonial.html" %}
@@ -35,7 +33,8 @@
 {% endif %}
 </div>
 
-<div id="written-twimonials" class="twimonials">
+<h2 id="written-twimonials" class="twimonials">{{ user.screen_name }} Has Written About</h2>
+<div class="twimonials">
 {% if user.written_twimonials %}
 {% for twimonial in user.written_twimonials %}
 {% include "twimonial_written.html" %}
@@ -43,6 +42,5 @@
 {% else %}
 <div class="notice">{{ user.screen_name }} has not written any testimonial yet</div>
 {% endif %}
-</div>
 </div>
 {% endblock %}

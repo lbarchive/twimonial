@@ -20,6 +20,7 @@ TWITTER_PW = ''
 
 # Switches
 DEBUG = True
+CACHE = True
 
 # UI
 MAIN_CSS_REV = '0'

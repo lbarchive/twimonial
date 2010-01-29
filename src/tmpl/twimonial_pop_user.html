@@ -1,7 +1,7 @@
 <div class="twimonial {% cycle even,old %}">
  <div class="leftbar">
   <div><a class="profile-image" href="/user/{{ twimonial.to_user.screen_name }}"><img src="{{ twimonial.to_user.profile_image_url }}" title="{{ twimonial.to_user.screen_name }}"/></a></div>
-  <div><a class="agree-button" href="javascript:agree({{ twimonial.id }})">Agree</a></div>
+  <div><a class="agree-button" href="javascript:agree({{ twimonial.id }})"></a></div>
   <div class="recv-count" title="{{ twimonial.to_user.recvs }} testimonial{{ twimonial.to_user.recvs|pluralize }}">{{ twimonial.to_user.recvs }}</div>
  </div>
 

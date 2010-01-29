@@ -7,15 +7,6 @@
 {% endblock %}
 
 {% block content %}
-<div style="-moz-border-radius: 10px; -webkit-border-radius: 10px; background-color: #cee1e9; font-style: italic; text-align: center; margin: 1em auto;">
-{% ifequal config.SERVICE_NAME "Twitter" %}
-Identi.ca users? Check out <a href="http://dentimonial.appspot.com/"><img src="http://dentimonial.appspot.com/favicon.ico"> Dentimonial</a>!<br/>
-Chrome users? try out <a href="https://chrome.google.com/extensions/detail/enkhdoocfejiccigkjjjlnemgkpeghno">this extension</a>!
-{% else %}
-Twitter users? Check out <a href="http://twimonial.appspot.com/"><img src="http://twimonial.appspot.com/favicon.ico"> Twimonial</a>!
-{% endifequal %}
-</div>
-
 <div class="jquery-ui-tabs">
 <ul>
   <li><a href="#home-tab-1">What is {{ config.SITE_NAME}}?</a></li>
@@ -78,16 +69,16 @@ A few facts you might want to know:
 
 <h2>Search</h2>
 <div class="menu">
-Read testimonials about <input id="f1_screen_name" type="text" value="livibetter"/> <input type="button" onclick="f1()" value="»"/>
+Read testimonials about <input id="f1_screen_name" type="text" value=""/> <input type="button" onclick="f1()" value="»"/>
 </div>
 
 <h2>Make Lists for Follow Friday #FF</h2>
 <div class="menu">
-List testimonials about <input id="f2_screen_names" type="text" value="{% ifequal config.SERVICE_NAME "Twitter" %}postsecret cookingupastory claraskitchen ImprovEvery{% else %}dentimonial{% endifequal %} livibetter" title="Ten screen names at most"/> <input type="button" onclick="f2()" value="»"/>
+List testimonials about <input id="f2_screen_names" type="text" value="" title="Ten screen names at most, seperate with space"/> <input type="button" onclick="f2()" value="»"/>
 </div>
 
 <div class="menu">
-List testimonials about <input id="f3_screen_names" type="text" value="{% ifequal config.SERVICE_NAME "Twitter" %}postsecret cookingupastory claraskitchen ImprovEvery{% else %}dentimonial{% endifequal %}" title="Ten screen names at most"/> by <input id="f3_screen_name" type="text" value="livibetter"/> <input type="button" onclick="f3()" value="»"/>
+List testimonials about <input id="f3_screen_names" type="text" value="" title="Ten screen names at most, seperate with space"/> by <input id="f3_screen_name" type="text" value=""/> <input type="button" onclick="f3()" value="»"/>
 </div>
 
 <h2>Latest Five Testimonials</h2>

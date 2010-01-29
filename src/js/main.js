@@ -31,7 +31,8 @@ function agree(id) {
         var $ele = $(this);
         if ($ele.attr('href').indexOf("(" + json.id + ")") >= 0) {
           humanMsg.displayMsg(json.message, 'message');
-          $ele.fadeOut('fast').remove();
+          $ele.css('opacity', 1.0);
+          $ele.unbind();
           return false;
           }
         });
@@ -89,8 +90,11 @@ function go_jmp() {
         result = json.results[r];
         break;
         }
-      $('#jmp').replaceWith('<div id="jmp">' + result['shortUrl'] + '</div>');
-      $('span.page-uri').text(result['shortUrl']);
+      $('span.page-uri')
+          .text(result['shortUrl'])
+          .attr('title', '')
+          .unbind('click', go_jmp)
+          .removeClass('page-uri');
       }
     else
       humanMsg.displayMsg(json.errorMessage, 'error');
@@ -108,6 +112,16 @@ function tweet_testimonial() {
     window.open('http://twitter.com/home?status=' + encodeURIComponent(tweet));
     }
 
+function jumpto_relocate() {
+  var window_top = $(window).scrollTop();
+  var div_top = $('div.jumpto_anchor').offset().top;
+  if (window_top > div_top) {
+    $('div.jumpto').addClass('stick');
+    }
+  else{
+    $('div.jumpto').removeClass('stick');
+    }
+  }
 
 google.setOnLoadCallback(function () {
   var messages = window.lso_messages;
@@ -116,8 +130,18 @@ google.setOnLoadCallback(function () {
       humanMsg.displayMsg(messages[i][1], messages[i][0]);
   init_error_indicator();
   $('.jquery-ui-tabs').tabs();
-  $('a.agree-button').attr('title', 'Click to agree this testimonial');
-  $('#jmp').click(go_jmp).css('cursor', 'pointer').attr('title', 'Click to get a shortened url of this page');
+  $('a.agree-button')
+      .attr('title', 'Click to agree with this testimonial')
+      .css('background', 'url(/img/agree.png) no-repeat')
+      .css('opacity', 0.5)
+      .mouseenter(function() {$(this).fadeTo('normal', 1.0)})
+      .mouseleave(function() {$(this).fadeTo('normal', 0.5)})
+      ;
+  
+  $('#header').prepend('<div id="jmp"><span class="page-uri" title="Click to shortened URI of this page">j.mp</span></div>')
+  $('pre.tweet span.page-uri').text(window.location.href);
+  $('span.page-uri').click(go_jmp);
+
   $('span.screen-name').each(function(index){
     var ele = $(this);
     var t = $('<a href="' + SERVICE_URI + ele.text() + '"><img src="/img/' + SERVICE_NAME.toLowerCase() + '.png" title="Go to ' + ele.text() + "'s " + SERVICE_NAME + ' profile page"/></a>');
@@ -126,12 +150,14 @@ google.setOnLoadCallback(function () {
       .mouseleave(function() {$(this).fadeTo('normal', 0.5)});
     ele.after(t);
     });
-  $('span.page-uri').text(window.location.href);
-  $('#fm-testimonial').keyup(update_count);
-  $('#fm-testimonial').change(update_count);
-  $('#fm-to').keyup(update_count);
-  $('#fm-to').change(update_count);
-  update_count();
+  if ($('#fm').length) {
+    $('#fm-testimonial').keyup(update_count);
+    $('#fm-testimonial').change(update_count);
+    $('#fm-to').keyup(update_count);
+    $('#fm-to').change(update_count);
+    update_count();
+    }
+  $(window).scroll(jumpto_relocate);
   });
 
 // vim:ts=2:sw=2:et:

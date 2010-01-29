@@ -14,11 +14,12 @@ class HomePage(webapp.RequestHandler):
 
   def get(self):
 
-    # Check cache first
-    cached_page = memcache.get('homepage')
-    if cached_page:
-      self.response.out.write(cached_page)
-      return
+    if config.CACHE:
+      # Check cache first
+      cached_page = memcache.get('homepage')
+      if cached_page:
+        self.response.out.write(cached_page)
+        return
 
     # Get latest five testimonials
     latest_twimonials = [t.dictize() for t in Twimonial.all().order('-created_at').fetch(5)]
@@ -30,7 +31,8 @@ class HomePage(webapp.RequestHandler):
     # Send out and cache it
     rendered_page = render_write(tmpl_values, 'home.html', self.request,
         self.response)
-    memcache.set('homepage', rendered_page, config.CACHE_TIME_HOMEPAGE)
+    if config.CACHE:
+      memcache.set('homepage', rendered_page, config.CACHE_TIME_HOMEPAGE)
 
   def head(self):
 
