@@ -1,12 +1,12 @@
 {% if twimonials %}
 <div>
 <h3>Here is a tweet made for you to tweet on Follow Friday!</h3>
-<input type="button" value="Tweet it!" onclick="window.open('http://twitter.com/home?status=' + encodeURIComponent($('pre.tweet').text()))" style="float: right"/>
-<pre class="tweet">Follow Friday #FF {% for twimonial in twimonials %}@{{ twimonial.to_user.screen_name }}{% if not forloop.last %}, {% endif %}{% endfor %} Read {{ config.TRACKING_HASHTAG}} at <span class="page-uri" title="Click to shorten this URI">URI</span></pre>
+<input type="button" value="Tweet it!" onclick="window.open('http://twitter.com/home?status=' + encodeURIComponent($('pre.tweet.ff').text()))" style="float: right"/>
+<pre class="tweet ff">Follow Friday #FF {% for twimonial in twimonials %}@{{ twimonial.to_user.screen_name }}{% if not forloop.last %}, {% endif %}{% endfor %} Read {{ config.TRACKING_HASHTAG}} at <span class="page-uri" title="Click to shorten this URI">URI</span></pre>
 </div>
 <div>
 <h3>Here is a tweet made for you to tweet on Follow Sunday!</h3>
-<input type="button" value="Tweet it!" onclick="window.open('http://twitter.com/home?status=' + encodeURIComponent($('pre.tweet').text()))" style="float: right"/>
-<pre class="tweet">#FollowSunday {% for twimonial in twimonials %}@{{ twimonial.to_user.screen_name }}{% if not forloop.last %}, {% endif %}{% endfor %} Read {{ config.TRACKING_HASHTAG}} at <span class="page-uri" title="Click to shorten this URI">URI</span></pre>
+<input type="button" value="Tweet it!" onclick="window.open('http://twitter.com/home?status=' + encodeURIComponent($('pre.tweet.fs').text()))" style="float: right"/>
+<pre class="tweet fs">#FollowSunday {% for twimonial in twimonials %}@{{ twimonial.to_user.screen_name }}{% if not forloop.last %}, {% endif %}{% endfor %} Read {{ config.TRACKING_HASHTAG}} at <span class="page-uri" title="Click to shorten this URI">URI</span></pre>
 </div>
 {% endif %}
