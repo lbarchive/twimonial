@@ -1,12 +1,17 @@
 {% if twimonials %}
 <div>
-<h3>Here is a tweet made for you to tweet on Follow Friday!</h3>
-<input type="button" value="Tweet it!" onclick="window.open('http://twitter.com/home?status=' + encodeURIComponent($('pre.tweet.ff').text()))" style="float: right"/>
-<pre class="tweet ff">Follow Friday #FF {% for twimonial in twimonials %}@{{ twimonial.to_user.screen_name }}{% if not forloop.last %}, {% endif %}{% endfor %} Read {{ config.TRACKING_HASHTAG}} at <span class="page-uri" title="Click to shorten this URI">URI</span></pre>
-</div>
-<div>
-<h3>Here is a tweet made for you to tweet on Follow Sunday!</h3>
-<input type="button" value="Tweet it!" onclick="window.open('http://twitter.com/home?status=' + encodeURIComponent($('pre.tweet.fs').text()))" style="float: right"/>
-<pre class="tweet fs">#FollowSunday {% for twimonial in twimonials %}@{{ twimonial.to_user.screen_name }}{% if not forloop.last %}, {% endif %}{% endfor %} Read {{ config.TRACKING_HASHTAG}} at <span class="page-uri" title="Click to shorten this URI">URI</span></pre>
+<h3>Here is a tweet made for you to tweet on Follow Friday or other days!</h3>
+<input type="button" value="Tweet it!" onclick="window.open('http://twitter.com/home?status=' + encodeURIComponent($('#followday').val() + ' ' + $('pre.tweet.ff').text()))" style="float: right"/>
+<select id="followday">
+<option>#FollowSunday</option>
+<option>#FollowMonday</option>
+<option>#FollowTuesday</option>
+<option>#FollowWednesday</option>
+<option>#FollowThursday</option>
+<option selected="selected">Follow Friday #FF</option>
+<option>#FollowSaturday</option>
+</select>
+<pre class="tweet ff">
+{% for twimonial in twimonials %}@{{ twimonial.to_user.screen_name }}{% if not forloop.last %}, {% endif %}{% endfor %} Read {{ config.TRACKING_HASHTAG}} at <span class="page-uri" title="Click to shorten this URI">URI</span></pre>
 </div>
 {% endif %}

@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Testimonials about Twitter users and make them useful for Follow Friday and Follow Sunday{% endblock %}
+{% block title %}Testimonials about Twitter users and make them useful for Follow Friday{% endblock %}
 {% block head %}
   <meta name="description" content="Read or write testimonials about Twitter users"/>
-  <meta name="keywords" content="testimonial, testimony, Twimonial, Twitter, Follow Friday, FF, Follow Sunday, FollowFriday, FollowSunday">
+  <meta name="keywords" content="testimonial, testimony, Twimonial, Twitter, Follow Friday, FF, FollowFriday">
 {% endblock %}
 
 {% block content %}
@@ -13,7 +13,7 @@
   <li><a href="#home-tab-2">How to Add a Testimonial?</a></li>
 </ul>
 
-<div id="home-tab-1">{{ config.SITE_NAME}} is a webapp to read testimonials about {{ config.SERVICE_NAME }} users. You can also make a list for your Follow Friday and Follow Sunday recommendation so that your {{ config.FOLLOWERS_NAME|lower }} get to know why a user that you recommend should be {{ config.FOLLOWED_NAME|lower }}{% ifequal config.SERVICE_NAME "Twitter" %}, for Example:
+<div id="home-tab-1">{{ config.SITE_NAME}} is a webapp to read testimonials about {{ config.SERVICE_NAME }} users. You can also make a list for your Follow Friday recommendation so that your {{ config.FOLLOWERS_NAME|lower }} get to know why a user that you recommend should be {{ config.FOLLOWED_NAME|lower }}{% ifequal config.SERVICE_NAME "Twitter" %}, for Example:
 <pre class="tweet">#FF @postsecret @cookingupastory @claraskitchen @ImprovEvery Read my #twimonial at <a href="http://j.mp/5Ikq95">http://j.mp/5Ikq95</a></pre>{% else %}.{% endifequal %}
 </div>
 
@@ -72,7 +72,7 @@ A few facts you might want to know:
 Read testimonials about <input id="f1_screen_name" type="text" value=""/> <input type="button" onclick="f1()" value="»"/>
 </div>
 
-<h2>Make Lists for Follow Friday #FF and Follow Sunday</h2>
+<h2>Make Lists for Follow Friday or other day</h2>
 <div class="menu">
 List testimonials about <input id="f2_screen_names" type="text" value="" title="Ten screen names at most, seperate with space"/> <input type="button" onclick="f2()" value="»"/>
 </div>

@@ -333,6 +333,11 @@ span.page-uri {
   margin: 2px;
   }
 
+#followday {
+float:left;
+margin:2px;
+}
+
 pre.tweet span.page-uri {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
