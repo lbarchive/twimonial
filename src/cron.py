@@ -4,6 +4,7 @@ from google.appengine.ext import deferred
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 from twimonial import tasks
+from twimonial.models import TQI
 import config
 
 
@@ -16,7 +17,8 @@ class RescheduleTasks(webapp.RequestHandler):
     except TaskAlreadyExistsError:
       pass
     try:
-      deferred.defer(tasks.process_TQI)
+      if TQI.all().count() > 0:
+        deferred.defer(tasks.process_TQI)
     except TaskAlreadyExistsError:
       pass
 
