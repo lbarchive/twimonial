@@ -12,6 +12,6 @@
 <option>#FollowSaturday #FS</option>
 </select>
 <pre class="tweet ff">
-{% for twimonial in twimonials %}@{{ twimonial.to_user.screen_name }}{% if not forloop.last %}, {% endif %}{% endfor %} Read {{ config.TRACKING_HASHTAG}} at <span class="page-uri" title="Click to shorten this URI">URI</span></pre>
+{% for twimonial in twimonials %}@{{ twimonial.to_user.screen_name }}{% if not forloop.last %}, {% endif %}{% endfor %} Read #twimonials at <span class="page-uri" title="Click to shorten this URI">URI</span></pre>
 </div>
 {% endif %}
