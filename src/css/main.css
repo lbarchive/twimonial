@@ -211,8 +211,15 @@ div.twimonial.even {
   background-color: #d9d9c9;
   }
 
-div.twimonial.old {
+div.twimonial.odd {
   background-color: #d9c9d9;
+  }
+
+div.twimonial.even:hover,
+div.twimonial.odd:hover {
+  background-color: #e9d9c9;
+  border: 3px solid #b7bdbb;
+  padding: 2px;
   }
 
 div.twimonial div.recv-count {
@@ -230,6 +237,7 @@ div.twimonial div.recv-count {
   font-size: 20px;
   float: left;
   opacity: 0.8;
+  cursor: default;
   }
 
 div.twimonial div.leftbar {

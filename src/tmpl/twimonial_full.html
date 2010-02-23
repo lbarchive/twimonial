@@ -1,4 +1,4 @@
-<div class="twimonial {% cycle even,old %}">
+<div class="twimonial {% cycle even,odd %}">
  <div class="leftbar">
   <a class="profile-image" href="/user/{{ twimonial.to_user.screen_name }}"><img src="{{ twimonial.to_user.profile_image_url }}" title="{{ twimonial.to_user.screen_name }}"/></a>
   <a class="agree-button" href="javascript:agree({{ twimonial.id }})"></a>
