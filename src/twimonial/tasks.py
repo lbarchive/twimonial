@@ -199,7 +199,8 @@ def process_TQI():
 def queue_profile_image(key_name):
 
   try:
-    deferred.defer(update_profile_image_url, key_name)
+    # XXX see _countdown=30 will help solve recvs = 0 problem
+    deferred.defer(update_profile_image_url, key_name, _countdown=30)
     #deferred.defer(update_profile_image_url, key_name, _name='update-profile-image-%s' % key_name)
   except TaskAlreadyExistsError:
     pass

@@ -38,6 +38,7 @@ def fetch(uri, username='', password=''):
   headers = {}
   if username and password:
     headers['Authorization'] = 'Basic ' + base64.b64encode('%s:%s' % (username, password))
+    headers['User-Agent'] = 'Twimonial'
   
   f = urlfetch.fetch(uri, headers=headers)
   logging.debug('Fetching %s (%s): %d' % (uri, username, f.status_code))
