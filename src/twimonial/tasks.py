@@ -27,11 +27,16 @@ def get_twimonials():
   # Uses Twitter Search API to get the testimonials
   since_id = Data.read('since_id')
   search_twimonial_uri = SEARCH_TWIMONIAL_URI
-  if since_id:
-    search_twimonial_uri += '&since_id=%s' % since_id
-    i_since_id = int(since_id)
+  
+  continue_search = memcache.get('continue_search')
+  if continue_search:
+    # next page
+    continue_search['page'] = continue_search['page'] + 1
+    search_twimonial_uri += '&page=%d&max_id=%d' % (continue_search['page'], continue_search['max_id'])
+    logging.debug('Continuing search: Page %d, max_id=%d' % (continue_search['page'] + 1, continue_search['max_id']))
   else:
-    i_since_id = 0
+    search_twimonial_uri += '&since_id=%s' % since_id
+
   # Searching
   try:
     f = fetch(search_twimonial_uri, config.TWITTER_ID, config.TWITTER_PW)
@@ -45,21 +50,11 @@ def get_twimonials():
     p_json = json.loads(f.content)
     results = p_json['results']
     if not results:
-#      if p_json['max_id'] > 0 and since_id != p_json['max_id']:
-#        logging.debug('Updated since_id to %d' % p_json['max_id'])
-#        Data.write('since_id', p_json['max_id'])
-      # Re-schedule
-#      deferred.defer(get_twimonials,
-#          _countdown=config.TASK_GET_TWIMONIAL_INTERVAL)
-#      logging.debug('No twimonials, rescheduled')
       logging.debug('No twimonials')
       return
     # Starting processing
     tqis = []
     for t in results:
-      # Identi.ca's since_id didn't seem to apply on filter, it still return notices' ids less than since_id
-      if int(t['id']) < i_since_id:
-        return
       if t['text'].find('http') > -1:
         # Possibly a link, skip
         continue
@@ -100,17 +95,37 @@ def get_twimonials():
           )
       tqis.append(new_tqi)
     db.put(tqis)
-    # Update since_id and re-schedule
-    Data.write('since_id', p_json['max_id'])
-    deferred.defer(get_twimonials)
-    logging.debug('%d twimonials stored, rescheduled' % len(tqis))
+    if continue_search:
+      if len(results) < 100 or continue_search['page'] >= 15:
+        # No more tweets
+        memcache.delete('continue_search')
+        logging.debug('%d twimonials stored, finished continuing searching' % len(tqis))
+        # Update since_id
+        Data.write('since_id', continue_search['max_id'])
+      else:
+        # Update continue search
+        memcache.set('continue_search', continue_search)
+        deferred.defer(get_twimonials, _countdown=5)
+        logging.debug('%d twimonials stored, rescheduled continuing searching' % len(tqis))
+    else:
+      if len(results) >= 100:
+        # Need to continue search
+        memcache.set('continue_search', {'page': 1, 'max_id': int(p_json['max_id'])})
+        deferred.defer(get_twimonials, _countdown=5)
+        logging.debug('%d twimonials stored, need to continue searching' % len(tqis))
+      else:
+        # Update since_id
+        Data.write('since_id', p_json['max_id'])
 #  elif f.status_code == 404:
 #    # since_id is too old
   else:
-    logging.error('Unable to search, status_code: %d, content: %s'\
-        % (f.status_code, f.content))
-#    deferred.defer(get_twimonials,
-#        _countdown=config.TASK_GET_TWIMONIAL_INTERVAL)
+    if continue_search:
+      deferred.defer(get_twimonials, _countdown=5)
+      logging.error('Unable to continue searching, retry in 5 seconds, status_code: %d, content: %s'\
+          % (f.status_code, f.content))
+    else:
+      logging.error('Unable to search, status_code: %d, content: %s'\
+          % (f.status_code, f.content))
 
 
 def process_TQI():

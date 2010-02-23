@@ -110,7 +110,6 @@ div.menu {
 #content {
   text-align: left;
   margin: 10px auto;
-  min-height: 102px;
   }
 
 #fm-testimonial {
@@ -200,7 +199,7 @@ div.twimonial {
   -webkit-border-radius: 6px;
   clear: both;
   margin-top: 10px;
-  min-height: 80px;
+  min-height: 96px;
   padding: 5px;
   }
 
