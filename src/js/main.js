@@ -157,6 +157,9 @@ google.setOnLoadCallback(function () {
     $('#fm-to').change(update_count);
     update_count();
     }
+
+  $('#followday option:nth-child(' + String((new Date()).getDay() + 1) + ')').attr('selected', 'selected');
+  
   $(window).scroll(jumpto_relocate);
   jump_relocate();
   });
