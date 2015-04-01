@@ -1,0 +1,1 @@
+[Twimonial](http://twimonial.appspot.com) is a webapp to read testimonials about Twitter users. You can also make a list for your Follow Friday recommendation so that your followers get to know why a user that you recommend should be followed.
